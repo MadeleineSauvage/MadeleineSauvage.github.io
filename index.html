@@ -73,16 +73,11 @@
         }
 
         .carousel-cd {
-        flex-shrink: 0;
-        width: 150px;
-        height: 150px;
-        transition: transform 0.35s cubic-bezier(0.25, 1.25, 0.5, 1), box-shadow 0.35s ease;
-        }
-
-        .carousel-cd:hover {
-        transform: scale(1.2) translateY(-15px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-        z-index: 10;
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            transition: transform 0.35s cubic-bezier(0.25, 1.25, 0.5, 1),
+                        box-shadow 0.35s ease;
         }
 
         .carousel-cd img {
@@ -92,6 +87,11 @@
             pointer-events: none;
         }
 
+        .carousel-cd:hover {
+            transform: scale(1.2) translateY(-15px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -106,7 +106,7 @@
     <div class="carousel-section">
         <div class="carousel-container">
             <div class="carousel-track" id="carouselTrack">
-                <!-- CDs -->
+                <!-- Example CDs (repeat or duplicate sets as needed) -->
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -117,17 +117,7 @@
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <!-- Duplicate sets omitted for brevity -->
+                <!-- Duplicate sets can continue for seamless effect -->
             </div>
         </div>
     </div>
