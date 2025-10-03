@@ -21,7 +21,7 @@
       height: 70vh;
     }
 
-    /* Main CD container */
+    /* Main CD */
     .main-cd-container {
       display: flex;
       justify-content: center;
@@ -41,18 +41,16 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%;  /* circle */
+      border-radius: 50%; 
       background: transparent;
     }
 
-    /* Hover effect */
     .cd:hover {
       transform: scale(1.05);
     }
 
-    /* Spinning + pop effect */
     .cd.spinning {
-      transform: scale(1.15) translateY(-15px); /* pop up when clicked */
+      transform: scale(1.15) translateY(-15px); 
       z-index: 3;
     }
 
@@ -94,12 +92,11 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%; /* circle */
+      border-radius: 50%; 
       background: transparent;
       pointer-events: none;
     }
 
-    /* Hover effect for little CDs */
     .carousel-cd:hover {
       transform: scale(1.15) translateY(-10px);
       z-index: 2;
@@ -120,7 +117,7 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- CDs (repeat enough times for looping) -->
+        <!-- Your base set of CDs -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -141,7 +138,7 @@
       window.scrollTo(0, document.body.scrollHeight);
     });
 
-    // Main CD spin & scroll toggle
+    // Main CD spin toggle
     const mainCD = document.getElementById('mainCD');
     let isSpinning = false;
     let originalScrollPos = 0;
@@ -158,25 +155,35 @@
       }
     });
 
-    // Carousel swipe logic
+    // Carousel loop
     const track = document.getElementById('carouselTrack');
-    const cds = document.querySelectorAll('.carousel-cd');
+    const cds = Array.from(track.children);
     const cdWidth = 150 + 30; // width + gap
     const totalCDs = cds.length;
     const totalWidth = cdWidth * totalCDs;
 
-    // Start centered
-    let currentTranslate = -totalWidth / 2;
+    // Clone sets: prepend & append
+    const cloneBefore = cds.map(cd => cd.cloneNode(true));
+    const cloneAfter = cds.map(cd => cd.cloneNode(true));
+    cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
+    cloneAfter.forEach(c => track.appendChild(c));
+
+    // Update all CDs
+    const allCDs = document.querySelectorAll('.carousel-cd');
+    const loopWidth = cdWidth * totalCDs;
+
+    // Start in the middle set
+    let currentTranslate = -loopWidth;
     track.style.transform = `translateX(${currentTranslate}px)`;
 
     let startX;
     let startTranslate = 0;
 
     function normalizePosition() {
-      if (currentTranslate > 0) {
-        currentTranslate -= totalWidth;
-      } else if (currentTranslate < -totalWidth) {
-        currentTranslate += totalWidth;
+      if (currentTranslate > -cdWidth) {
+        currentTranslate -= loopWidth;
+      } else if (currentTranslate < -loopWidth * 2) {
+        currentTranslate += loopWidth;
       }
       track.style.transform = `translateX(${currentTranslate}px)`;
     }
@@ -200,7 +207,7 @@
       normalizePosition();
     });
 
-    // Trackpad / mouse wheel horizontal swipe
+    // Trackpad / mouse wheel swipe
     const container = document.querySelector('.carousel-container');
     container.addEventListener('wheel', (e) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
