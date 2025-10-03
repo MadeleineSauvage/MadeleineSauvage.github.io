@@ -14,23 +14,18 @@
         body {
             font-family: Arial, sans-serif;
             background: #ffffff;
-            min-height: 200vh;
             overflow-x: hidden;
-            padding-top: 50vh;
         }
 
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 100vh;
+        .spacer {
+            height: 100vh;
         }
 
         .main-cd-container {
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding-top: 40px;
+            align-items: center;
+            padding: 40px 0;
         }
 
         .cd {
@@ -61,13 +56,11 @@
 
         .carousel-section {
             width: 100%;
-            padding-bottom: 0;
         }
 
         .carousel-container {
             position: relative;
             overflow: hidden;
-            padding: 0;
             width: 100%;
         }
 
@@ -75,7 +68,6 @@
             display: flex;
             gap: 30px;
             padding: 20px;
-            padding-bottom: 10px;
             user-select: none;
         }
 
@@ -99,8 +91,9 @@
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
-        <div class="main-cd-container">
+    <div class="spacer"></div>
+    
+    <div class="main-cd-container">
         <div class="cd" id="mainCD">
             <img src="assets/cd.png" alt="CD">
         </div>
