@@ -23,8 +23,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 0;
-            margin-bottom: 60px;
+            padding: 60px 0;
+            margin-bottom: 80px;
         }
 
         .cd {
@@ -32,7 +32,6 @@
             height: 300px;
             cursor: pointer;
             transition: transform 0.3s ease;
-            filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.5));
         }
 
         .cd img {
@@ -59,30 +58,19 @@
             margin: 0 auto;
         }
 
-        .carousel-title {
-            text-align: center;
-            color: white;
-            font-size: 24px;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
         .carousel-container {
             position: relative;
             overflow: hidden;
             padding: 20px 0;
+            width: 100%;
         }
 
         .carousel-track {
             display: flex;
             gap: 30px;
             padding: 20px;
-            cursor: grab;
+            transition: transform 0.5s ease;
             user-select: none;
-        }
-
-        .carousel-track:active {
-            cursor: grabbing;
         }
 
         .carousel-cd {
@@ -90,7 +78,6 @@
             width: 150px;
             height: 150px;
             transition: transform 0.3s ease;
-            filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.4));
         }
 
         .carousel-cd img {
@@ -113,9 +100,20 @@
     </div>
 
     <div class="carousel-section">
-        <h2 class="carousel-title">CD Collection</h2>
         <div class="carousel-container">
             <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -137,43 +135,37 @@
 
         // Carousel swipe functionality
         const track = document.getElementById('carouselTrack');
-        let isDragging = false;
         let startX;
-        let scrollLeft;
+        let startTranslate = 0;
+        let currentTranslate = 0;
 
-        track.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
-        });
-
-        track.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        track.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        track.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 2;
-            track.scrollLeft = scrollLeft - walk;
-        });
-
-        // Touch support for mobile
+        // Touch events
         track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
+            startX = e.touches[0].clientX;
+            startTranslate = currentTranslate;
         });
 
         track.addEventListener('touchmove', (e) => {
-            const x = e.touches[0].pageX - track.offsetLeft;
-            const walk = (x - startX) * 2;
-            track.scrollLeft = scrollLeft - walk;
+            if (!startX) return;
+            const currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+            currentTranslate = startTranslate + diff;
+            track.style.transform = `translateX(${currentTranslate}px)`;
         });
+
+        track.addEventListener('touchend', () => {
+            startX = null;
+        });
+
+        // Trackpad swipe (mouse wheel horizontal scroll)
+        const container = document.querySelector('.carousel-container');
+        container.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                e.preventDefault();
+                currentTranslate -= e.deltaX;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
