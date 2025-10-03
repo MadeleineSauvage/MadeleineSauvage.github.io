@@ -133,11 +133,27 @@
             mainCD.classList.toggle('spinning');
         });
 
-        // Carousel swipe functionality
+        // Carousel infinite loop swipe functionality
         const track = document.getElementById('carouselTrack');
+        const cdWidth = 150 + 30; // CD width + gap
+        const totalCDs = 20;
+        const totalWidth = cdWidth * totalCDs;
+        
         let startX;
         let startTranslate = 0;
         let currentTranslate = 0;
+
+        // Normalize position to create infinite loop
+        function normalizePosition() {
+            // Keep position within bounds to create seamless loop
+            if (currentTranslate > 0) {
+                currentTranslate -= totalWidth;
+                startTranslate = currentTranslate;
+            } else if (currentTranslate < -totalWidth) {
+                currentTranslate += totalWidth;
+                startTranslate = currentTranslate;
+            }
+        }
 
         // Touch events
         track.addEventListener('touchstart', (e) => {
@@ -148,13 +164,15 @@
         track.addEventListener('touchmove', (e) => {
             if (!startX) return;
             const currentX = e.touches[0].clientX;
-            const diff = currentX - startX;
+            const diff = (currentX - startX) * 0.5; // Slow down touch movement
             currentTranslate = startTranslate + diff;
             track.style.transform = `translateX(${currentTranslate}px)`;
         });
 
         track.addEventListener('touchend', () => {
             startX = null;
+            normalizePosition();
+            track.style.transform = `translateX(${currentTranslate}px)`;
         });
 
         // Trackpad swipe (mouse wheel horizontal scroll)
@@ -162,7 +180,8 @@
         container.addEventListener('wheel', (e) => {
             if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
                 e.preventDefault();
-                currentTranslate -= e.deltaX;
+                currentTranslate -= e.deltaX * 0.3; // Slow down trackpad movement
+                normalizePosition();
                 track.style.transform = `translateX(${currentTranslate}px)`;
             }
         }, { passive: false });
