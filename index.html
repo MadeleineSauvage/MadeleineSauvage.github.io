@@ -17,6 +17,7 @@
             min-height: 100vh;
             padding: 20px;
             padding-top: 500px;
+            padding-bottom: 20px;
             overflow-x: hidden;
         }
 
@@ -24,8 +25,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 60px 0;
-            margin-bottom: 80px;
+            padding: 60px 0 20px 0;
+            margin-bottom: 20px;
         }
 
         .cd {
@@ -170,6 +171,11 @@
     </div>
 
     <script>
+        // Scroll to bottom on page load
+        window.addEventListener('load', () => {
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
         // Main CD spinning and scroll
         const mainCD = document.getElementById('mainCD');
         const mainCDContainer = document.querySelector('.main-cd-container');
