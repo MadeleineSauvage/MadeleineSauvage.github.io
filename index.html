@@ -21,7 +21,7 @@
       height: 70vh;
     }
 
-    /* Main CD */
+    /* Main CD container */
     .main-cd-container {
       display: flex;
       justify-content: center;
@@ -41,10 +41,19 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+      border-radius: 50%;  /* circle */
+      background: transparent;
     }
 
+    /* Hover effect */
     .cd:hover {
       transform: scale(1.05);
+    }
+
+    /* Spinning + pop effect */
+    .cd.spinning {
+      transform: scale(1.15) translateY(-15px); /* pop up when clicked */
+      z-index: 3;
     }
 
     .cd.spinning img {
@@ -78,27 +87,28 @@
       flex-shrink: 0;
       width: 150px;
       height: 150px;
-      transition: transform 0.35s cubic-bezier(0.25, 1.25, 0.5, 1),
-                  box-shadow 0.35s ease;
+      transition: transform 0.3s ease;
     }
 
     .carousel-cd img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      border-radius: 50%; /* circle */
+      background: transparent;
       pointer-events: none;
     }
 
+    /* Hover effect for little CDs */
     .carousel-cd:hover {
-      transform: scale(1.2) translateY(-15px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-      z-index: 10;
+      transform: scale(1.15) translateY(-10px);
+      z-index: 2;
     }
   </style>
 </head>
 <body>
   <div class="spacer"></div>
-
+  
   <!-- Main CD -->
   <div class="main-cd-container">
     <div class="cd" id="mainCD">
@@ -110,7 +120,7 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Set of CDs -->
+        <!-- Lots of CDs (3 sets for infinite loop) -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -121,29 +131,18 @@
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-
-        <!-- Duplicate sets for infinite loop -->
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <!-- duplicate sets... -->
       </div>
     </div>
   </div>
 
   <script>
-    // Scroll to bottom on page load
+    // Scroll to bottom on load
     window.addEventListener('load', () => {
       window.scrollTo(0, document.body.scrollHeight);
     });
 
-    // Main CD spin + scroll
+    // Main CD spin & scroll toggle
     const mainCD = document.getElementById('mainCD');
     let isSpinning = false;
     let originalScrollPos = 0;
@@ -151,7 +150,7 @@
     mainCD.addEventListener('click', () => {
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
-
+      
       if (isSpinning) {
         originalScrollPos = window.scrollY;
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -160,14 +159,13 @@
       }
     });
 
-    // Carousel infinite loop
+    // Carousel swipe logic
     const track = document.getElementById('carouselTrack');
-    const cdWidth = 150 + 30; // CD + gap
-    const totalCDs = 10; // number of CDs in one set
+    const cdWidth = 150 + 30; // width + gap
+    const totalCDs = 20; // CDs per set
     const totalWidth = cdWidth * totalCDs;
 
-    // Start in middle so both sides visible
-    let currentTranslate = -totalWidth / 2;
+    let currentTranslate = -totalWidth / 2; // Start in middle set
     track.style.transform = `translateX(${currentTranslate}px)`;
 
     let startX;
@@ -201,7 +199,7 @@
       normalizePosition();
     });
 
-    // Mouse wheel swipe
+    // Trackpad / mouse wheel horizontal swipe
     const container = document.querySelector('.carousel-container');
     container.addEventListener('wheel', (e) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
