@@ -35,6 +35,7 @@
       height: 300px;
       cursor: pointer;
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .cd img {
@@ -43,6 +44,7 @@
       object-fit: contain;
       border-radius: 50%; 
       background: transparent;
+      transition: transform 0.25s ease;
     }
 
     .cd:hover {
@@ -86,6 +88,7 @@
       width: 150px;
       height: 150px;
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
 
     .carousel-cd img {
@@ -95,11 +98,17 @@
       border-radius: 50%; 
       background: transparent;
       pointer-events: none;
+      transition: transform 0.25s ease;
     }
 
     .carousel-cd:hover {
       transform: scale(1.15) translateY(-10px);
       z-index: 2;
+    }
+
+    /* Bounce effect */
+    .swap-animate {
+      transform: scale(0.8);
     }
   </style>
 </head>
@@ -117,7 +126,7 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Your base set of CDs -->
+        <!-- Base set of CDs -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -140,6 +149,7 @@
 
     // Main CD spin toggle
     const mainCD = document.getElementById('mainCD');
+    const mainCDImg = mainCD.querySelector('img');
     let isSpinning = false;
     let originalScrollPos = 0;
 
@@ -168,11 +178,7 @@
     cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
     cloneAfter.forEach(c => track.appendChild(c));
 
-    // Update all CDs
-    const allCDs = document.querySelectorAll('.carousel-cd');
     const loopWidth = cdWidth * totalCDs;
-
-    // Start in the middle set
     let currentTranslate = -loopWidth;
     track.style.transform = `translateX(${currentTranslate}px)`;
 
@@ -217,6 +223,31 @@
         normalizePosition();
       }
     }, { passive: false });
+
+    // === SWAP FUNCTIONALITY (with bounce) ===
+    function addSwapListeners() {
+      const allCDs = document.querySelectorAll('.carousel-cd img');
+      allCDs.forEach(cdImg => {
+        cdImg.parentElement.addEventListener('click', () => {
+          const tempSrc = mainCDImg.src;
+
+          // add bounce effect
+          mainCDImg.classList.add('swap-animate');
+          cdImg.classList.add('swap-animate');
+
+          setTimeout(() => {
+            mainCDImg.src = cdImg.src;
+            cdImg.src = tempSrc;
+
+            // remove bounce to return to normal
+            mainCDImg.classList.remove('swap-animate');
+            cdImg.classList.remove('swap-animate');
+          }, 200);
+        });
+      });
+    }
+
+    addSwapListeners(); // run after initial load
   </script>
 </body>
 </html>
