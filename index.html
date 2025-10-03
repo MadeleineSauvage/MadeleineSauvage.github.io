@@ -173,26 +173,25 @@
         const mainCD = document.getElementById('mainCD');
         const mainCDContainer = document.querySelector('.main-cd-container');
         let isSpinning = false;
+        let originalScrollPos = 0;
         
         mainCD.addEventListener('click', () => {
             isSpinning = !isSpinning;
             mainCD.classList.toggle('spinning');
             
             if (isSpinning) {
-                // Scroll up so CD is half showing at bottom of screen
-                const cdRect = mainCDContainer.getBoundingClientRect();
-                const cdHeight = cdRect.height;
-                const windowHeight = window.innerHeight;
-                const scrollTarget = window.scrollY + cdRect.bottom - windowHeight + (cdHeight / 2);
+                // Save current position
+                originalScrollPos = window.scrollY;
                 
+                // Scroll up (to 0) so page moves up and CD appears to move down
                 window.scrollTo({
-                    top: scrollTarget,
+                    top: 0,
                     behavior: 'smooth'
                 });
             } else {
-                // Scroll back to top
+                // Scroll back to original position
                 window.scrollTo({
-                    top: 0,
+                    top: originalScrollPos,
                     behavior: 'smooth'
                 });
             }
