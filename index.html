@@ -69,7 +69,6 @@
             display: flex;
             gap: 30px;
             padding: 20px;
-            transition: transform 0.5s ease;
             user-select: none;
         }
 
@@ -102,6 +101,49 @@
     <div class="carousel-section">
         <div class="carousel-container">
             <div class="carousel-track" id="carouselTrack">
+                <!-- Original set -->
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <!-- Duplicate set for seamless loop -->
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+                <!-- Another duplicate set -->
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
                 <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -139,20 +181,21 @@
         const totalCDs = 20;
         const totalWidth = cdWidth * totalCDs;
         
+        let currentTranslate = -totalWidth; // Start at middle set
+        track.style.transform = `translateX(${currentTranslate}px)`;
+        
         let startX;
         let startTranslate = 0;
-        let currentTranslate = 0;
 
         // Normalize position to create infinite loop
         function normalizePosition() {
-            // Keep position within bounds to create seamless loop
-            if (currentTranslate > 0) {
-                currentTranslate -= totalWidth;
-                startTranslate = currentTranslate;
-            } else if (currentTranslate < -totalWidth) {
-                currentTranslate += totalWidth;
-                startTranslate = currentTranslate;
+            // Reset position seamlessly when reaching the end of a set
+            if (currentTranslate > -cdWidth) {
+                currentTranslate = -totalWidth + (currentTranslate % cdWidth);
+            } else if (currentTranslate < -totalWidth * 2) {
+                currentTranslate = -totalWidth + (currentTranslate % -totalWidth);
             }
+            track.style.transform = `translateX(${currentTranslate}px)`;
         }
 
         // Touch events
@@ -164,7 +207,7 @@
         track.addEventListener('touchmove', (e) => {
             if (!startX) return;
             const currentX = e.touches[0].clientX;
-            const diff = (currentX - startX) * 0.5; // Slow down touch movement
+            const diff = (currentX - startX) * 0.5;
             currentTranslate = startTranslate + diff;
             track.style.transform = `translateX(${currentTranslate}px)`;
         });
@@ -172,7 +215,6 @@
         track.addEventListener('touchend', () => {
             startX = null;
             normalizePosition();
-            track.style.transform = `translateX(${currentTranslate}px)`;
         });
 
         // Trackpad swipe (mouse wheel horizontal scroll)
@@ -180,9 +222,9 @@
         container.addEventListener('wheel', (e) => {
             if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
                 e.preventDefault();
-                currentTranslate -= e.deltaX * 0.3; // Slow down trackpad movement
-                normalizePosition();
+                currentTranslate -= e.deltaX * 0.3;
                 track.style.transform = `translateX(${currentTranslate}px)`;
+                normalizePosition();
             }
         }, { passive: false });
     </script>
