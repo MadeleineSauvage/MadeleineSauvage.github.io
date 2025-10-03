@@ -120,7 +120,7 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Lots of CDs (3 sets for infinite loop) -->
+        <!-- CDs (repeat enough times for looping) -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
@@ -131,7 +131,6 @@
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <!-- duplicate sets... -->
       </div>
     </div>
   </div>
@@ -161,11 +160,13 @@
 
     // Carousel swipe logic
     const track = document.getElementById('carouselTrack');
+    const cds = document.querySelectorAll('.carousel-cd');
     const cdWidth = 150 + 30; // width + gap
-    const totalCDs = 20; // CDs per set
+    const totalCDs = cds.length;
     const totalWidth = cdWidth * totalCDs;
 
-    let currentTranslate = -totalWidth / 2; // Start in middle set
+    // Start centered
+    let currentTranslate = -totalWidth / 2;
     track.style.transform = `translateX(${currentTranslate}px)`;
 
     let startX;
