@@ -1,198 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CD Spinner & Carousel</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CD Spinner & Carousel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #ffffff;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      overflow-x: hidden;
+    }
 
-        .spacer {
-            height: 70vh;
-        }
+    .spacer {
+      height: 70vh;
+    }
 
-        .main-cd-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 60px;
-            padding: 40px 0;
-        }
+    /* Main CD */
+    .main-cd-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 60px;
+      padding: 40px 0;
+    }
 
-        .cd {
-            width: 300px;
-            height: 300px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+    .cd {
+      width: 300px;
+      height: 300px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-        .cd img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+    .cd img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-        .cd:hover {
-            transform: scale(1.05);
-        }
+    .cd:hover {
+      transform: scale(1.05);
+    }
 
-        .cd.spinning img {
-            animation: spin 2s linear infinite;
-        }
+    .cd.spinning img {
+      animation: spin 2s linear infinite;
+    }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-        .carousel-section {
-            width: 100%;
-        }
+    /* Carousel */
+    .carousel-section {
+      width: 100%;
+    }
 
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-        }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
 
-        .carousel-track {
-            display: flex;
-            gap: 30px;
-            padding: 20px;
-            user-select: none;
-        }
+    .carousel-track {
+      display: flex;
+      gap: 30px;
+      padding: 20px;
+      user-select: none;
+    }
 
-        .carousel-cd {
-            flex-shrink: 0;
-            width: 150px;
-            height: 150px;
-            transition: transform 0.35s cubic-bezier(0.25, 1.25, 0.5, 1),
-                        box-shadow 0.35s ease;
-        }
+    .carousel-cd {
+      flex-shrink: 0;
+      width: 150px;
+      height: 150px;
+      transition: transform 0.35s cubic-bezier(0.25, 1.25, 0.5, 1),
+                  box-shadow 0.35s ease;
+    }
 
-        .carousel-cd img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            pointer-events: none;
-        }
+    .carousel-cd img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+    }
 
-        .carousel-cd:hover {
-            transform: scale(1.2) translateY(-15px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-            z-index: 10;
-        }
-    </style>
+    .carousel-cd:hover {
+      transform: scale(1.2) translateY(-15px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
-    <div class="spacer"></div>
-    
-    <div class="main-cd-container">
-        <div class="cd" id="mainCD">
-            <img src="assets/cd.png" alt="CD">
-        </div>
+  <div class="spacer"></div>
+
+  <!-- Main CD -->
+  <div class="main-cd-container">
+    <div class="cd" id="mainCD">
+      <img src="assets/cd.png" alt="CD">
     </div>
+  </div>
 
-    <div class="carousel-section">
-        <div class="carousel-container">
-            <div class="carousel-track" id="carouselTrack">
-                <!-- Example CDs (repeat or duplicate sets as needed) -->
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-                <!-- Duplicate sets can continue for seamless effect -->
-            </div>
-        </div>
+  <!-- Carousel -->
+  <div class="carousel-section">
+    <div class="carousel-container">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Set of CDs -->
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+
+        <!-- Duplicate sets for infinite loop -->
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // Scroll to bottom on page load
-        window.addEventListener('load', () => {
-            window.scrollTo(0, document.body.scrollHeight);
-        });
+  <script>
+    // Scroll to bottom on page load
+    window.addEventListener('load', () => {
+      window.scrollTo(0, document.body.scrollHeight);
+    });
 
-        // Main CD spinning and scroll
-        const mainCD = document.getElementById('mainCD');
-        let isSpinning = false;
-        let originalScrollPos = 0;
-        
-        mainCD.addEventListener('click', () => {
-            isSpinning = !isSpinning;
-            mainCD.classList.toggle('spinning');
-            
-            if (isSpinning) {
-                originalScrollPos = window.scrollY;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
-            }
-        });
+    // Main CD spin + scroll
+    const mainCD = document.getElementById('mainCD');
+    let isSpinning = false;
+    let originalScrollPos = 0;
 
-        // Carousel infinite loop swipe functionality
-        const track = document.getElementById('carouselTrack');
-        const cdWidth = 150 + 30; // CD width + gap
-        const totalCDs = 20;
-        const totalWidth = cdWidth * totalCDs;
-        
-        let currentTranslate = 0; // Start at middle set
+    mainCD.addEventListener('click', () => {
+      isSpinning = !isSpinning;
+      mainCD.classList.toggle('spinning');
+
+      if (isSpinning) {
+        originalScrollPos = window.scrollY;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
+      }
+    });
+
+    // Carousel infinite loop
+    const track = document.getElementById('carouselTrack');
+    const cdWidth = 150 + 30; // CD + gap
+    const totalCDs = 10; // number of CDs in one set
+    const totalWidth = cdWidth * totalCDs;
+
+    // Start in middle so both sides visible
+    let currentTranslate = -totalWidth / 2;
+    track.style.transform = `translateX(${currentTranslate}px)`;
+
+    let startX;
+    let startTranslate = 0;
+
+    function normalizePosition() {
+      if (currentTranslate > 0) {
+        currentTranslate -= totalWidth;
+      } else if (currentTranslate < -totalWidth) {
+        currentTranslate += totalWidth;
+      }
+      track.style.transform = `translateX(${currentTranslate}px)`;
+    }
+
+    // Touch events
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startTranslate = currentTranslate;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!startX) return;
+      const currentX = e.touches[0].clientX;
+      const diff = (currentX - startX) * 0.5;
+      currentTranslate = startTranslate + diff;
+      track.style.transform = `translateX(${currentTranslate}px)`;
+    });
+
+    track.addEventListener('touchend', () => {
+      startX = null;
+      normalizePosition();
+    });
+
+    // Mouse wheel swipe
+    const container = document.querySelector('.carousel-container');
+    container.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.preventDefault();
+        currentTranslate -= e.deltaX * 0.3;
         track.style.transform = `translateX(${currentTranslate}px)`;
-        
-        let startX;
-        let startTranslate = 0;
-
-        function normalizePosition() {
-            if (currentTranslate > -cdWidth) {
-                currentTranslate = -totalWidth + (currentTranslate % cdWidth);
-            } else if (currentTranslate < -totalWidth * 2) {
-                currentTranslate = -totalWidth + (currentTranslate % -totalWidth);
-            }
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        }
-
-        track.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            startTranslate = currentTranslate;
-        });
-
-        track.addEventListener('touchmove', (e) => {
-            if (!startX) return;
-            const currentX = e.touches[0].clientX;
-            const diff = (currentX - startX) * 0.5;
-            currentTranslate = startTranslate + diff;
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        });
-
-        track.addEventListener('touchend', () => {
-            startX = null;
-            normalizePosition();
-        });
-
-        const container = document.querySelector('.carousel-container');
-        container.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                e.preventDefault();
-                currentTranslate -= e.deltaX * 0.3;
-                track.style.transform = `translateX(${currentTranslate}px)`;
-                normalizePosition();
-            }
-        }, { passive: false });
-    </script>
+        normalizePosition();
+      }
+    }, { passive: false });
+  </script>
 </body>
 </html>
