@@ -14,19 +14,23 @@
         body {
             font-family: Arial, sans-serif;
             background: #ffffff;
-            min-height: 100vh;
-            padding: 20px;
-            padding-top: 650px;
-            padding-bottom: 5px;
+            min-height: 200vh;
             overflow-x: hidden;
+            padding-top: 50vh;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
         }
 
         .main-cd-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 0px 0 20px 0;
-            margin-bottom: 120px;
+            align-items: flex-start;
+            padding-top: 40px;
         }
 
         .cd {
@@ -56,8 +60,8 @@
         }
 
         .carousel-section {
-            max-width: 100%;
-            margin: 0 auto;
+            width: 100%;
+            padding-bottom: 20px;
         }
 
         .carousel-container {
@@ -94,7 +98,8 @@
     </style>
 </head>
 <body>
-    <div class="main-cd-container">
+    <div class="content-wrapper">
+        <div class="main-cd-container">
         <div class="cd" id="mainCD">
             <img src="assets/cd.png" alt="CD">
         </div>
@@ -178,7 +183,6 @@
 
         // Main CD spinning and scroll
         const mainCD = document.getElementById('mainCD');
-        const mainCDContainer = document.querySelector('.main-cd-container');
         let isSpinning = false;
         let originalScrollPos = 0;
         
