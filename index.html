@@ -137,10 +137,10 @@
       flex-shrink: 0;
       width: 150px;
       height: 150px;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       cursor: pointer;
-      opacity: 0.4;
-      transform: scale(0.8);
+      opacity: 0.2;
+      transform: scale(0.7);
     }
 
     .carousel-cd img {
@@ -150,19 +150,18 @@
       border-radius: 50%; 
       background: transparent;
       pointer-events: none;
-      transition: transform 0.25s ease;
-    }
-
-    .carousel-cd:hover {
-      transform: scale(1.15) translateY(-10px);
-      z-index: 2;
-      opacity: 1;
     }
 
     /* Center CDs are bigger and more visible */
     .carousel-cd.center {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .carousel-cd.center:hover {
+      transform: scale(1.25) translateY(-10px);
+      z-index: 2;
     }
 
     /* Bounce effect */
