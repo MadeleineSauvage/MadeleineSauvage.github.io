@@ -122,8 +122,6 @@
       position: relative;
       overflow: hidden;
       width: 100%;
-      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     }
 
     .carousel-track {
@@ -137,10 +135,8 @@
       flex-shrink: 0;
       width: 150px;
       height: 150px;
-      transition: all 0.4s ease;
+      transition: transform 0.3s ease;
       cursor: pointer;
-      opacity: 0.2;
-      transform: scale(0.7);
     }
 
     .carousel-cd img {
@@ -152,15 +148,8 @@
       pointer-events: none;
     }
 
-    /* Center CDs are bigger and more visible */
-    .carousel-cd.center {
-      opacity: 1;
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-
-    .carousel-cd.center:hover {
-      transform: scale(1.25) translateY(-10px);
+    .carousel-cd:hover {
+      transform: scale(1.15) translateY(-10px);
       z-index: 2;
     }
 
