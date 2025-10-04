@@ -1,118 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CD Spinner & Carousel</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<!-- Content screens for each CD -->
+  <div class="content-screens">
+    <!-- Screen for cd.png -->
+    <div class="cd-screen" data-cd="assets/cd.png">
+      <h1>Now Playing: Default Album</h1>
+      <div class="track-list">
+        <div class="track">1. First Song</div>
+        <div class="track">2. Second Track</div>
+        <div class="track">3. Beautiful Melody</div>
+        <div class="track">4. Final Song</div>
+      </div>
+      <p class="album-info">This is the default album. Click another CD to see different content!</p>
+    </div>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      overflow-x: hidden;
-    }
+    <!-- Screen for cd1.png -->
+    <div class="cd-screen" data-cd="assets/cd1.png">
+      <h1>Now Playing: Midnight Dreams</h1>
+      <div class="track-list">
+        <div class="track">1. Moonlight Serenade</div>
+        <div class="track">2. Stars Above</div>
+        <div class="track">3. Nocturnal Whispers</div>
+        <div class="track">4. Dawn's First Light</div>
+      </div>
+      <p class="album-info">A collection of dreamy nighttime melodies.</p>
+    </div>
 
-    .spacer {
-      height: 70vh;
-    }
-
-    /* Main CD */
-    .main-cd-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 60px;
-      padding: 40px 0;
-    }
-
-    .cd {
-      width: 300px;
-      height: 300px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      position: relative;
-    }
-
-    .cd img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%; 
-      background: transparent;
-      transition: transform 0.25s ease;
-    }
-
-    .cd:hover {
-      transform: scale(1.05);
-    }
-
-    .cd.spinning {
-      transform: scale(1.15) translateY(-15px); 
-      z-index: 3;
-    }
-
-    .cd.spinning img {
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Carousel */
-    .carousel-section {
-      width: 100%;
-    }
-
-    .carousel-container {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .carousel-track {
-      display: flex;
-      gap: 10px;
-      padding: 20px;
-      user-select: none;
-    }
-
-    .carousel-cd {
-      flex-shrink: 0;
-      width: 150px;
-      height: 150px;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .carousel-cd img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 50%; 
-      background: transparent;
-      pointer-events: none;
-      transition: transform 0.25s ease;
-    }
-
-    .carousel-cd:hover {
-      transform: scale(1.15) translateY(-10px);
-      z-index: 2;
-    }
-
-    /* Bounce effect */
-    .swap-animate {
-      transform: scale(0.8);
-    }
-  </style>
-</head>
-<body>
+    <!-- Screen for cd3.png -->
+    <div class="cd-screen" data-cd="assets/cd3.png">
+      <h1>Now Playing: Electric Vibes</h1>
+      <div class="track-list">
+        <div class="track">1. Neon Lights</div>
+        <div class="track">2. Synth Wave</div>
+        <div class="track">3. Digital Dreams</div>
+        <div class="track">4. Future Pulse</div>
+      </div>
+      <p class="album-info">High-energy electronic beats that will keep you moving!</p>
+    </div>
+  </div>
+  
   <div class="spacer"></div>
   
   <!-- Main CD -->
@@ -121,132 +45,3 @@
       <img src="assets/cd.png" alt="CD">
     </div>
   </div>
-
-  <!-- Carousel -->
-  <div class="carousel-section">
-    <div class="carousel-container">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Base set of CDs -->
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Scroll to bottom on load
-    window.addEventListener('load', () => {
-      window.scrollTo(0, document.body.scrollHeight);
-    });
-
-    // Main CD spin toggle
-    const mainCD = document.getElementById('mainCD');
-    const mainCDImg = mainCD.querySelector('img');
-    let isSpinning = false;
-    let originalScrollPos = 0;
-
-    mainCD.addEventListener('click', () => {
-      isSpinning = !isSpinning;
-      mainCD.classList.toggle('spinning');
-      
-      if (isSpinning) {
-        originalScrollPos = window.scrollY;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
-      }
-    });
-
-    // Carousel loop
-    const track = document.getElementById('carouselTrack');
-    const cds = Array.from(track.children);
-    const cdWidth = 150 + 30; // width + gap
-    const totalCDs = cds.length;
-    const totalWidth = cdWidth * totalCDs;
-
-    // Clone sets: prepend & append
-    const cloneBefore = cds.map(cd => cd.cloneNode(true));
-    const cloneAfter = cds.map(cd => cd.cloneNode(true));
-    cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
-    cloneAfter.forEach(c => track.appendChild(c));
-
-    const loopWidth = cdWidth * totalCDs;
-    let currentTranslate = -loopWidth;
-    track.style.transform = `translateX(${currentTranslate}px)`;
-
-    let startX;
-    let startTranslate = 0;
-
-    function normalizePosition() {
-      if (currentTranslate > -cdWidth) {
-        currentTranslate -= loopWidth;
-      } else if (currentTranslate < -loopWidth * 2) {
-        currentTranslate += loopWidth;
-      }
-      track.style.transform = `translateX(${currentTranslate}px)`;
-    }
-
-    // Touch events
-    track.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startTranslate = currentTranslate;
-    });
-
-    track.addEventListener('touchmove', (e) => {
-      if (!startX) return;
-      const currentX = e.touches[0].clientX;
-      const diff = (currentX - startX) * 0.5;
-      currentTranslate = startTranslate + diff;
-      track.style.transform = `translateX(${currentTranslate}px)`;
-    });
-
-    track.addEventListener('touchend', () => {
-      startX = null;
-      normalizePosition();
-    });
-
-    // Trackpad / mouse wheel swipe
-    const container = document.querySelector('.carousel-container');
-    container.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        e.preventDefault();
-        currentTranslate -= e.deltaX * 0.3;
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        normalizePosition();
-      }
-    }, { passive: false });
-
-    // === SWAP FUNCTIONALITY (with bounce) ===
-    function addSwapListeners() {
-      const allCDs = document.querySelectorAll('.carousel-cd img');
-      allCDs.forEach(cdImg => {
-        cdImg.parentElement.addEventListener('click', () => {
-          const tempSrc = mainCDImg.src;
-
-          // add bounce effect
-          mainCDImg.classList.add('swap-animate');
-          cdImg.classList.add('swap-animate');
-
-          setTimeout(() => {
-            mainCDImg.src = cdImg.src;
-            cdImg.src = tempSrc;
-
-            // remove bounce to return to normal
-            mainCDImg.classList.remove('swap-animate');
-            cdImg.classList.remove('swap-animate');
-          }, 200);
-        });
-      });
-    }
-
-    addSwapListeners(); // run after initial load
-  </script>
-</body>
-</html>
