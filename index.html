@@ -84,6 +84,35 @@
       margin-bottom: 20px;
     }
 
+    .screen-content-custom {
+      display: flex;
+      justify-content: space-between; /* pushes left and right apart */
+      align-items: center;
+        height: 100%; /* make it fill the screen height */
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* align image + title to the left edge */
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .left-column img.album-art {
+      width: 400px;
+      height: auto;
+      object-fit: cover;
+      margin-left: -40px; /* move further left if you want it past the natural edge */
+    }
+
+    .right-column {
+      max-width: 35%; /* keeps paragraph narrower */
+      text-align: right; /* align text inside to right */
+      margin-right: 40px; /* space from the edge */
+    }
+
+
     .description {
       margin-top: 30px;
       padding: 20px;
