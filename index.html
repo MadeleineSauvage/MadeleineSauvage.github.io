@@ -106,16 +106,16 @@
       width: 400px;
       height: auto;
       object-fit: cover;
-      margin-left: 0;            /* flush to edge */
-      transform: translateX(-40px); /* adjust this value to nudge further left */
+      margin-left: 0;
+      transform: translateX(-40px);
     }
 
     /* Right side (paragraph) */
     .right-column {
       max-width: 35%;
       text-align: right;
-      margin-right: 0;     /* flush to edge */
-      padding-right: 40px; /* space from edge */
+      margin-right: 0;
+      padding-right: 40px;
     }
 
     .description {
@@ -157,7 +157,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%; 
+      border-radius: 50%;
       background: transparent;
       transition: transform 0.25s ease;
     }
@@ -167,7 +167,7 @@
     }
 
     .cd.spinning {
-      transform: scale(1.15) translateY(-15px); 
+      transform: scale(1.15) translateY(-15px);
       z-index: 3;
     }
 
@@ -212,7 +212,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%; 
+      border-radius: 50%;
       background: transparent;
       pointer-events: none;
     }
@@ -226,6 +226,23 @@
     .swap-animate {
       transform: scale(0.8);
     }
+
+    /* === Fruit banner (only on first CD screen) === */
+    .cd-screen[data-cd="assets/cd.png"] .fruit-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background-image: url("assets/fruit.jpg");
+      background-repeat: repeat-x;
+      background-size: 120px auto;
+      z-index: 10;
+    }
+
+    .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
+      margin-top: 140px; /* push content below banner */
+    }
   </style>
 </head>
 <body>
@@ -233,6 +250,9 @@
   <div class="content-screens">
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
+      <!-- Banner -->
+      <div class="fruit-banner"></div>
+
       <div class="screen-content-custom">
         <div class="left-column">
           <img src="assets/IMG_0151.jpeg" alt="Album Art" class="album-art">
@@ -284,7 +304,6 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Base set of CDs -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
@@ -305,7 +324,6 @@
       document.body.classList.add('lock-scroll');
     });
 
-    // Main CD spin toggle
     const mainCD = document.getElementById('mainCD');
     const mainCDImg = mainCD.querySelector('img');
     let isSpinning = false;
@@ -314,7 +332,6 @@
     function updateScreen() {
       const currentCDSrc = mainCDImg.src;
       const allScreens = document.querySelectorAll('.cd-screen');
-      
       allScreens.forEach(screen => {
         const screenCD = screen.getAttribute('data-cd');
         if (currentCDSrc.includes(screenCD)) {
@@ -328,7 +345,6 @@
     mainCD.addEventListener('click', () => {
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
-      
       if (isSpinning) {
         originalScrollPos = window.scrollY;
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -349,7 +365,6 @@
     const cdWidth = 150 + 30;
     const totalCDs = cds.length;
 
-    // Clone sets
     const cloneBefore = cds.map(cd => cd.cloneNode(true));
     const cloneAfter = cds.map(cd => cd.cloneNode(true));
     cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
@@ -366,12 +381,10 @@
       const container = document.querySelector('.carousel-container');
       const containerCenter = container.offsetWidth / 2;
       const allCDs = document.querySelectorAll('.carousel-cd');
-      
       allCDs.forEach(cd => {
         const rect = cd.getBoundingClientRect();
         const cdCenter = rect.left + rect.width / 2;
         const distanceFromCenter = Math.abs(cdCenter - containerCenter);
-        
         if (distanceFromCenter < 200) {
           cd.classList.add('center');
         } else {
@@ -390,7 +403,6 @@
       updateCenterCDs();
     }
 
-    // Touch events
     track.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       startTranslate = currentTranslate;
@@ -410,7 +422,6 @@
       normalizePosition();
     });
 
-    // Trackpad / mouse wheel swipe
     const container = document.querySelector('.carousel-container');
     container.addEventListener('wheel', (e) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
@@ -421,26 +432,20 @@
       }
     }, { passive: false });
 
-    // Initial center update
     updateCenterCDs();
 
-    // === SWAP FUNCTIONALITY (with bounce) ===
     function addSwapListeners() {
       const allCDs = document.querySelectorAll('.carousel-cd img');
       allCDs.forEach(cdImg => {
         cdImg.parentElement.addEventListener('click', () => {
           const tempSrc = mainCDImg.src;
-
           mainCDImg.classList.add('swap-animate');
           cdImg.classList.add('swap-animate');
-
           setTimeout(() => {
             mainCDImg.src = cdImg.src;
             cdImg.src = tempSrc;
-
             mainCDImg.classList.remove('swap-animate');
             cdImg.classList.remove('swap-animate');
-
             if (isSpinning) {
               updateScreen();
             }
