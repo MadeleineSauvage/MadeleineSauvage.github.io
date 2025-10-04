@@ -84,17 +84,20 @@
       margin-bottom: 20px;
     }
 
+    /* === Custom two-column layout === */
     .screen-content-custom {
       display: flex;
-      justify-content: space-between; /* pushes left and right apart */
+      justify-content: space-between;
       align-items: center;
-        height: 100%; /* make it fill the screen height */
+      height: 100%;
+      width: 100%;
     }
 
+    /* Left side (image + title) */
     .left-column {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* align image + title to the left edge */
+      align-items: flex-start;
       margin-left: 0;
       padding-left: 0;
     }
@@ -103,15 +106,17 @@
       width: 400px;
       height: auto;
       object-fit: cover;
-      margin-left: -40px; /* move further left if you want it past the natural edge */
+      margin-left: 0;            /* flush to edge */
+      transform: translateX(-40px); /* adjust this value to nudge further left */
     }
 
+    /* Right side (paragraph) */
     .right-column {
-      max-width: 35%; /* keeps paragraph narrower */
-      text-align: right; /* align text inside to right */
-      margin-right: 40px; /* space from the edge */
+      max-width: 35%;
+      text-align: right;
+      margin-right: 0;     /* flush to edge */
+      padding-right: 40px; /* space from edge */
     }
-
 
     .description {
       margin-top: 30px;
@@ -229,12 +234,10 @@
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
       <div class="screen-content-custom">
-        
         <div class="left-column">
           <img src="assets/IMG_0151.jpeg" alt="Album Art" class="album-art">
           <h1 class="small-title">@katiealicemakes</h1>
         </div>
-        
         <div class="right-column">
           <p>my first test knit!</p>
         </div>
