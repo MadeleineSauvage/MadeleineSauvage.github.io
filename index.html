@@ -17,6 +17,16 @@
       overflow-x: hidden;
     }
 
+    body.lock-scroll {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    body.lock-scroll {
+      overflow: hidden;
+      height: 100vh;
+    }
+
     /* Content screens - hidden behind */
     .content-screens {
       position: fixed;
@@ -196,12 +206,12 @@
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
       <div class="screen-content">
-        <img src="assets/IMG_0151.jpg" alt="Album Art" class="album-art">
-        <h1>The Very Hungry Cardigan</h1>
-        <h2>@KatieAliceMakes</h2>
+        <img src="assets/album1-art.jpg" alt="Album Art" class="album-art">
+        <h1>Album Title One</h1>
+        <h2>Artist Name</h2>
         <p>Released 2024</p>
         <div class="description">
-          <p>My first test knit!!.</p>
+          <p>This is where you can put a description of the album, the story behind it, or any other information you want to display.</p>
         </div>
       </div>
     </div>
@@ -264,6 +274,7 @@
     // Scroll to bottom on load
     window.addEventListener('load', () => {
       window.scrollTo(0, document.body.scrollHeight);
+      document.body.classList.add('lock-scroll');
     });
 
     // Main CD spin toggle
@@ -293,8 +304,12 @@
       if (isSpinning) {
         originalScrollPos = window.scrollY;
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          document.body.classList.add('lock-scroll');
+        }, 500);
         updateScreen();
       } else {
+        document.body.classList.remove('lock-scroll');
         window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
       }
