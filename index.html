@@ -13,88 +13,35 @@
 
     body {
       font-family: Arial, sans-serif;
-      overflow: hidden; /* no scrollbars */
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      overflow-y: hidden; /* prevent manual scroll */
+      height: auto;       /* allow stacking sections */
       background: white;
     }
 
-    /* === Content screens === */
+    /* Content screens stacked in flow */
     .content-screens {
       width: 100%;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateY(100%); /* hidden below view */
-      transition: transform 0.8s ease;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .content-screens.active {
-      transform: translateY(0); /* slides into view */
-      pointer-events: auto;
     }
 
     .cd-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       opacity: 0;
       transition: opacity 0.5s ease;
       padding: 40px;
-      background: white;
     }
 
     .cd-screen.active {
       opacity: 1;
+      pointer-events: auto;
     }
 
-    .screen-content {
-      max-width: 800px;
-      text-align: center;
-    }
-
-    .album-art {
-      width: 400px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 5px;
-    }
-
-    .screen-content h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    .screen-content h2 {
-      font-size: 1.8em;
-      margin-bottom: 10px;
-      color: #666;
-      font-weight: normal;
-    }
-
-    .screen-content p {
-      font-size: 1.2em;
-      color: #999;
-      margin-bottom: 20px;
-    }
-
-    /* === Custom two-column layout === */
     .screen-content-custom {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 100%;
       width: 100%;
     }
 
@@ -102,40 +49,26 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0;
     }
 
     .left-column img.album-art {
       width: 400px;
       height: auto;
-      object-fit: cover;
-      margin-left: 0;
-      margin-bottom: 5px;
+      margin-bottom: 0;
       transform: translateX(-40px);
+      display: block;
     }
 
-    .right-column {
-      max-width: 35%;
-      text-align: right;
-      margin-right: 0;
-      padding-right: 40px;
-    }
-
-    .description {
-      margin-top: 30px;
-      padding: 20px;
-      background: transparent;
+    .album-art {
+      width: 400px;
+      height: 400px;
+      object-fit: cover;
       border-radius: 10px;
     }
 
-    .description p {
-      color: #666;
-      line-height: 1.6;
-    }
-
-    /* === Main CD === */
+    /* Main CD */
     .main-cd-container {
-      flex: 1;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -178,11 +111,9 @@
       to { transform: rotate(360deg); }
     }
 
-    /* === Carousel === */
+    /* Carousel */
     .carousel-section {
       width: 100%;
-      position: relative;
-      z-index: 2;
       background: white;
       padding: 20px 0;
     }
@@ -222,14 +153,9 @@
       z-index: 2;
     }
 
-    /* Bounce effect */
-    .swap-animate {
-      transform: scale(0.8);
-    }
-
-    /* Fruit banner */
+    /* Fruit banner (only first screen) */
     .cd-screen[data-cd="assets/cd.png"] .fruit-banner {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -246,6 +172,24 @@
   </style>
 </head>
 <body>
+
+  <!-- Main CD + Carousel -->
+  <div class="main-cd-container" id="mainCDSection">
+    <div class="cd" id="mainCD">
+      <img src="assets/cd.png" alt="CD">
+    </div>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel-container">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Content screens -->
   <div class="content-screens">
     <!-- Screen for cd.png -->
@@ -288,29 +232,10 @@
     </div>
   </div>
 
-  <!-- Main CD -->
-  <div class="main-cd-container">
-    <div class="cd" id="mainCD">
-      <img src="assets/cd.png" alt="CD">
-    </div>
-  </div>
-
-  <!-- Carousel -->
-  <div class="carousel-section">
-    <div class="carousel-container">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd4.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-      </div>
-    </div>
-  </div>
-
   <script>
     const mainCD = document.getElementById('mainCD');
     const mainCDImg = mainCD.querySelector('img');
+    const mainCDSection = document.getElementById('mainCDSection');
     let isSpinning = false;
 
     function updateScreen() {
@@ -329,71 +254,30 @@
     mainCD.addEventListener('click', () => {
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
-      const contentScreens = document.querySelector('.content-screens');
 
       if (isSpinning) {
         updateScreen();
-        contentScreens.classList.add('active'); // slide content up
+        const activeScreen = document.querySelector('.cd-screen.active');
+        if (activeScreen) {
+          activeScreen.scrollIntoView({ behavior: "smooth" });
+        }
       } else {
+        // Scroll back to main CD
+        mainCDSection.scrollIntoView({ behavior: "smooth" });
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
-        contentScreens.classList.remove('active'); // slide content down
       }
     });
 
-    // Carousel loop (same as before)
+    // Carousel swap (simple version)
     const track = document.getElementById('carouselTrack');
-    const cds = Array.from(track.children);
-    const cdWidth = 150 + 30;
-    const totalCDs = cds.length;
-
-    const cloneBefore = cds.map(cd => cd.cloneNode(true));
-    const cloneAfter = cds.map(cd => cd.cloneNode(true));
-    cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
-    cloneAfter.forEach(c => track.appendChild(c));
-
-    const loopWidth = cdWidth * totalCDs;
-    let currentTranslate = -loopWidth;
-    track.style.transform = `translateX(${currentTranslate}px)`;
-
-    function updateCenterCDs() {
-      const container = document.querySelector('.carousel-container');
-      const containerCenter = container.offsetWidth / 2;
-      const allCDs = document.querySelectorAll('.carousel-cd');
-      allCDs.forEach(cd => {
-        const rect = cd.getBoundingClientRect();
-        const cdCenter = rect.left + rect.width / 2;
-        const distanceFromCenter = Math.abs(cdCenter - containerCenter);
-        if (distanceFromCenter < 200) {
-          cd.classList.add('center');
-        } else {
-          cd.classList.remove('center');
-        }
+    track.querySelectorAll('.carousel-cd img').forEach(cdImg => {
+      cdImg.parentElement.addEventListener('click', () => {
+        const tempSrc = mainCDImg.src;
+        mainCDImg.src = cdImg.src;
+        cdImg.src = tempSrc;
+        if (isSpinning) updateScreen();
       });
-    }
-
-    updateCenterCDs();
-
-    function addSwapListeners() {
-      const allCDs = document.querySelectorAll('.carousel-cd img');
-      allCDs.forEach(cdImg => {
-        cdImg.parentElement.addEventListener('click', () => {
-          const tempSrc = mainCDImg.src;
-          mainCDImg.classList.add('swap-animate');
-          cdImg.classList.add('swap-animate');
-          setTimeout(() => {
-            mainCDImg.src = cdImg.src;
-            cdImg.src = tempSrc;
-            mainCDImg.classList.remove('swap-animate');
-            cdImg.classList.remove('swap-animate');
-            if (isSpinning) {
-              updateScreen();
-            }
-          }, 200);
-        });
-      });
-    }
-
-    addSwapListeners();
+    });
   </script>
 </body>
 </html>
