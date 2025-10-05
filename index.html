@@ -12,7 +12,7 @@
     }
 
     body {
-      font-family: Garamond;
+      font-family: Garamond, serif;
       overflow-x: hidden;
     }
 
@@ -50,47 +50,7 @@
       opacity: 1;
     }
 
-    .screen-content {
-      max-width: 800px;
-      text-align: center;
-    }
-
-    .album-art {
-      width: 400px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 5px;
-    }
-
-    .screen-content h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    .screen-content h2 {
-      font-size: 1.8em;
-      margin-bottom: 10px;
-      color: #666;
-      font-weight: normal;
-    }
-
-    .screen-content h3 {
-      font-size: 1.4em;   
-      margin-bottom: 8px;
-      color: #777;        
-      font-weight: normal;
-    }
-
-
-    .screen-content p {
-      font-size: 1.2em;
-      color: #999;
-      margin-bottom: 20px;
-    }
-
-    /* === Custom layout === */
+    /* Universal screen layout */
     .screen-content-custom {
       display: flex;
       justify-content: space-between;
@@ -99,41 +59,50 @@
       width: 100%;
     }
 
+    /* Left column */
     .left-column {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0;
+      gap: 10px;
     }
 
     .left-column img.album-art {
-      width: 400px;
+      width: 300px;
       height: auto;
       object-fit: cover;
-      margin-left: 0;
-      margin-bottom: 5px;   
+      margin-bottom: 5px;
       transform: translateX(-40px);
     }
 
+    /* Right column */
     .right-column {
-      max-width: 35%;
+      max-width: 40%;
       text-align: right;
-      margin-right: 0;
       padding-right: 40px;
     }
 
-    .description {
-      margin-top: 30px;
-      padding: 20px;
-      background: transparent;
-      border-radius: 10px;
+    /* Text hierarchy */
+    .screen-title {
+      font-size: 3em;
+      color: #2e6f40;
+      margin-bottom: 10px;
     }
 
-    .description p {
-      color: #666;
+    .screen-subtitle {
+      font-size: 1.4em;
+      color: #555;
+      margin-bottom: 12px;
+      font-weight: normal;
+    }
+
+    .screen-text {
+      font-size: 1.1em;
       line-height: 1.6;
+      color: #333;
     }
 
+    /* Spacer before main CD */
     .spacer {
       height: 70vh;
     }
@@ -231,14 +200,6 @@
       transform: scale(0.8);
     }
 
-    .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
-      margin-top: 80px;
-    }
-
-    .cd-screen[data-cd="assets/cd.png"] {
-      background-color: #ffffff;
-    }
-
     /* === About Me page (cd4) === */
     .cd-screen[data-cd="assets/cd4.png"] {
       background-color: #faf9f6;
@@ -246,29 +207,24 @@
       justify-content: flex-end;
       align-items: center;
       padding: 40px;
-      text-align: right;
     }
 
     .cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
-      display: flex;
       justify-content: flex-end;
-      width: 100%;
     }
 
     .about-title {
-      font-family: "Garamond", cursive, sans-serif;
+      font-family: Garamond, serif;
       font-size: 4em;
       color: #2e6f40;
       margin-bottom: 15px;
-      text-align: right;
     }
 
     .project-subtitle {
-      font-size: 1.4em;   
-      color: ##2e6f40;;       
+      font-size: 1.4em;
+      color: #2e6f40;
       margin-bottom: 12px;
       font-weight: normal;
-      text-align: right;  
     }
 
     .about-box {
@@ -287,12 +243,13 @@
       text-align: right;
     }
 
+    /* Left collage of images (About Me) */
     .left-columns-wrapper {
       position: absolute;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 39%; 
+      width: 39%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 1fr);
@@ -314,14 +271,12 @@
         <div class="left-column">
           <img src="assets/IMG_0151.png" alt="Album Art" class="album-art">
           <img src="assets/IMG_0159.png" alt="Album Art 2" class="album-art">
-          <h1 class="small-title">@katiealicemakes</h1>
         </div>
-        
         <div class="right-column">
-          <h2 class="about-title">THE VERY HUNGRY CARDIGAN</h2>
-          <h3 class = "project-subtitle">@katiealicemakes</h3>
-          <p>
-            my first test knit was super fun used this yarn etc....
+          <h2 class="screen-title">THE VERY HUNGRY CARDIGAN</h2>
+          <h3 class="screen-subtitle">@katiealicemakes</h3>
+          <p class="screen-text">
+            My first test knit was super fun — I used this yarn etc....
           </p>
         </div>
       </div>
@@ -329,13 +284,23 @@
 
     <!-- Screen for cd1.png -->
     <div class="cd-screen" data-cd="assets/cd1.png">
-      <div class="screen-content">
+      <div class="screen-content-custom">
+        <div class="left-column"></div>
+        <div class="right-column">
+          <h2 class="screen-title">PROJECT TWO</h2>
+          <p class="screen-text">Coming soon...</p>
+        </div>
       </div>
     </div>
 
     <!-- Screen for cd3.png -->
     <div class="cd-screen" data-cd="assets/cd3.png">
-      <div class="screen-content">
+      <div class="screen-content-custom">
+        <div class="left-column"></div>
+        <div class="right-column">
+          <h2 class="screen-title">PROJECT THREE</h2>
+          <p class="screen-text">Details to follow...</p>
+        </div>
       </div>
     </div>
 
@@ -356,25 +321,17 @@
           <img src="assets/deja.jpg" alt="">
           <img src="assets/mind.jpg" alt="">
         </div>
-
         <div class="right-column">
           <h2 class="about-title">ABOUT ME</h2>
           <p>
-            Hi, I’m Madeleine!
-            <br>
+            Hi, I’m Madeleine!  
             I did my bachelor's in Computer Science and now I'm a Postgraduate Researcher in the safety of AI.  
-            My focus is on the lifelong safety of dynamic recommender systems  using uncertainty to improve recommendations for long-tail items. 
-            I believe safety in the Computer Science community deserves more time and should 
-            be seen not as a constraint but as a design goal. Safe AI systems can’t be achieved 
-            through one domain and must be a multi-discipline approach with a commitment to 
-            collaboration, inclusion of end users, and attention to regulatory and societal concerns.
-            <br>
-            <br>
-            <br>
-            I love knitting, reading, and gardening, collecting CDs, and listening to radio 4.
-            This website is to document my projects - whether it's coding, research, knitting, or sewing.
-            I'm hoping this will be a good way to see my progress and keep myself accountable over the 4 years of my PhD, 
-            either for my hobbies (to make sure my life isn't work) or the research I'll be doing.
+            My focus is on the lifelong safety of dynamic recommender systems using uncertainty to improve recommendations for long-tail items.  
+            I believe safety in the Computer Science community deserves more time and should be seen not as a constraint but as a design goal.  
+            <br><br>
+            I love knitting, reading, and gardening, collecting CDs, and listening to radio 4.  
+            This website is to document my projects — whether it's coding, research, knitting, or sewing.  
+            I'm hoping this will be a good way to see my progress and keep myself accountable over the 4 years of my PhD.
           </p>
         </div>
       </div>
@@ -399,10 +356,6 @@
         <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd4.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd5.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
       </div>
     </div>
   </div>
@@ -467,22 +420,6 @@
     let startX;
     let startTranslate = 0;
 
-    function updateCenterCDs() {
-      const container = document.querySelector('.carousel-container');
-      const containerCenter = container.offsetWidth / 2;
-      const allCDs = document.querySelectorAll('.carousel-cd');
-      allCDs.forEach(cd => {
-        const rect = cd.getBoundingClientRect();
-        const cdCenter = rect.left + rect.width / 2;
-        const distanceFromCenter = Math.abs(cdCenter - containerCenter);
-        if (distanceFromCenter < 200) {
-          cd.classList.add('center');
-        } else {
-          cd.classList.remove('center');
-        }
-      });
-    }
-
     function normalizePosition() {
       if (currentTranslate > -cdWidth) {
         currentTranslate -= loopWidth;
@@ -490,7 +427,6 @@
         currentTranslate += loopWidth;
       }
       track.style.transform = `translateX(${currentTranslate}px)`;
-      updateCenterCDs();
     }
 
     track.addEventListener('touchstart', (e) => {
@@ -504,7 +440,6 @@
       const diff = (currentX - startX) * 0.5;
       currentTranslate = startTranslate + diff;
       track.style.transform = `translateX(${currentTranslate}px)`;
-      updateCenterCDs();
     });
 
     track.addEventListener('touchend', () => {
@@ -521,8 +456,6 @@
         normalizePosition();
       }
     }, { passive: false });
-
-    updateCenterCDs();
 
     function addSwapListeners() {
       const allCDs = document.querySelectorAll('.carousel-cd img');
