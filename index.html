@@ -56,20 +56,22 @@
     }
     
     .left-column-images {
-    display: flex;
-    flex-direction: column;
-    gap: 0;              /* no gaps between images */
-    padding: 0;
-    position: absolute;  /* stick to the very left of screen */
-    left: 0;
-    height; 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;          /* column matches screen height */
+      width: 160px;           /* << control how skinny the column is */
+      display: flex;
+      flex-direction: column;
+      gap: 0px;               /* little gap between images */
     }
 
     .left-column-images img {
-    width: 100%;  
-    height: 100%;
-    flex: 1;
-    object-fit:cover;
+      width: 100%;            /* fit inside the skinny column */
+      height: auto;           /* keep proportions */
+      object-fit: contain;    /* no cropping */
+      flex: 1;
+      object-fit: cover;
     }
 
     .album-art {
