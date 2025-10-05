@@ -243,7 +243,47 @@
     }
 
     .cd-screen[data-cd="assets/cd.png"] {
-  background-color: #ffffff; /* pick your color */
+      background-color: #ffffff; /* pick your color */
+    }
+
+    /* === About Me page (cd4) === */
+    .cd-screen[data-cd="assets/cd4.png"] {
+      background-color: #faf9f6;
+      display: flex;
+      justify-content: flex-end; /* push box to right */
+      align-items: center;
+      padding: 40px;
+      text-align: right;
+    }
+
+    .cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .about-title {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-size: 2em;
+      color: #444;
+      margin-bottom: 15px;
+      text-align: right;
+    }
+
+    .about-box {
+      background: #fdf5e6;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin-left: auto;
+    }
+
+    .about-box p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #333;
+      text-align: right;
     }
   </style>
 </head>
@@ -261,8 +301,7 @@
           <img src="assets/IMG_0159.png" alt="Album Art 2" class="album-art">
           <h1 class="small-title">@katiealicemakes</h1>
         </div>
-        <div class="right-column">
-        </div>
+        <div class="right-column"></div>
       </div>
     </div>
 
@@ -291,24 +330,23 @@
         </div>
       </div>
     </div>
-  </div>
 
-      <!-- Screen for cd4.png -->
-  <div class="cd-screen" data-cd="assets/cd4.png">
-    <div class="screen-content-custom">
-      <div class="right-column">
-        <h2 class="about-title">ABOUT ME</h2>
-        <div class="about-box">
-          <p>
-          Hi! I’m Madeleine, a Postgraduate Researcher in the safety of AI. My focus is on the lifelong safety of dynamic 
-          recommender systems using uncertainty to improve recommendations for long-tail items. I love knitting, reading, and gardening, and collecting cds. 
-          This website is to document my coding, research, kntting, and sewing projects.
-          </p>
+    <!-- Screen for cd4.png (About Me) -->
+    <div class="cd-screen" data-cd="assets/cd4.png">
+      <div class="screen-content-custom">
+        <div class="right-column">
+          <h2 class="about-title">ABOUT ME</h2>
+          <div class="about-box">
+            <p>
+              Hi! I’m Madeleine, a Postgraduate Researcher in the safety of AI. My focus is on the lifelong safety of dynamic 
+              recommender systems using uncertainty to improve recommendations for long-tail items. I love knitting, reading, and gardening, and collecting CDs. 
+              This website is to document my coding, research, knitting, and sewing projects.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 
   <div class="spacer"></div>
   
