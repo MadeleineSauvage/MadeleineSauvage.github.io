@@ -61,6 +61,7 @@
       left: 0;
       height: 100vh;
       display: flex;
+    }
     
     .left-column-images {
       position: absolute;
@@ -76,7 +77,6 @@
     .left-column-images img {
       width: 100%;            /* fit inside the skinny column */
       height: auto;           /* keep proportions */
-      object-fit: contain;    /* no cropping */
       flex: 1;
       object-fit: cover;
     }
@@ -360,19 +360,20 @@
     <!-- Screen for cd4.png (About Me) -->
     <div class="cd-screen" data-cd="assets/cd4.png">
       <div class="screen-content-custom">
-        
-        <div class="left-column-images">
-          <img src="assets/leo.jpg" alt="Songs of leonard cohen">
-          <img src="assets/ants.jpg" alt="Stacked 2">
-          <img src="assets/adrianne.jpg" alt="Stacked 3">
-          <img src="assets/ladder.jpg" alt="Stacked 3">
-        </div>
+        <div class="left-columns-wrapper"
+          <div class="left-column-images">
+            <img src="assets/leo.jpg" alt="Songs of leonard cohen">
+            <img src="assets/ants.jpg" alt="Stacked 2">
+            <img src="assets/adrianne.jpg" alt="Stacked 3">
+            <img src="assets/ladder.jpg" alt="Stacked 3">
+          </div>
 
-        <div class="left-column-images">
-          <img src="assets/mobo.jpg" alt="Songs of leonard cohen">
-          <img src="assets/wave.jpg" alt="Stacked 2">
-          <img src="assets/murder.jpg" alt="Stacked 3">
-          <img src="assets/slept.jpg" alt="Stacked 3">
+          <div class="left-column-images">
+            <img src="assets/mobo.jpg" alt="Songs of leonard cohen">
+            <img src="assets/wave.jpg" alt="Stacked 2">
+            <img src="assets/murder.jpg" alt="Stacked 3">
+            <img src="assets/slept.jpg" alt="Stacked 3">
+          </div>
         </div>
 
         <div class="right-column">
