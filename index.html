@@ -59,18 +59,17 @@
     display: flex;
     flex-direction: column;
     gap: 0;              /* no gaps between images */
-    margin: 0;
     padding: 0;
     position: absolute;  /* stick to the very left of screen */
     left: 0;
-    top: 0;
-    bottom: 0;
+    height; 100vh;
     }
 
     .left-column-images img {
-    width: 150px;        /* adjust size as you like */
-    height: auto;
-    display: block;
+    width: 100%;  
+    height: 100%;
+    flex: 1;
+    object-fit:cover;
     }
 
     .album-art {
