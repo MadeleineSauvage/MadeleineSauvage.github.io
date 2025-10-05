@@ -314,9 +314,16 @@
   </div>
 
   <script>
+    // Scroll to bottom on load
+    window.addEventListener('load', () => {
+      window.scrollTo(0, document.body.scrollHeight);
+      document.body.classList.add('lock-scroll');
+    });
+
     const mainCD = document.getElementById('mainCD');
     const mainCDImg = mainCD.querySelector('img');
     let isSpinning = false;
+    let originalScrollPos = 0;
 
     function updateScreen() {
       const currentCDSrc = mainCDImg.src;
@@ -335,8 +342,19 @@
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
       if (isSpinning) {
+        originalScrollPos = window.scrollY;
+        document.body.classList.remove('lock-scroll');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+          document.body.classList.add('lock-scroll');
+        }, 500);
         updateScreen();
       } else {
+        document.body.classList.remove('lock-scroll');
+        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
+        setTimeout(() => {
+          document.body.classList.add('lock-scroll');
+        }, 500);
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
       }
     });
