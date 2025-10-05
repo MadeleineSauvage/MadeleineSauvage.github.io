@@ -13,15 +13,12 @@
 
     body {
       font-family: Arial, sans-serif;
-      overflow: hidden;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      overflow-x: hidden;
     }
 
     body.lock-scroll {
       overflow: hidden;
+      height: 100vh;
     }
 
     /* Content screens - hidden behind */
@@ -132,7 +129,7 @@
     }
 
     .spacer {
-      display: none;
+      height: 70vh;
     }
 
     /* Main CD */
@@ -184,8 +181,12 @@
     /* Carousel */
     .carousel-section {
       width: 100%;
-      position: relative;
-      z-index: 2;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      background: white;
+      padding: 20px 0;
     }
 
     .carousel-container {
@@ -325,6 +326,7 @@
   <script>
     // Scroll to bottom on load
     window.addEventListener('load', () => {
+      window.scrollTo(0, document.body.scrollHeight);
       document.body.classList.add('lock-scroll');
     });
 
@@ -350,6 +352,8 @@
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
       if (isSpinning) {
+        originalScrollPos = window.scrollY;
+        document.body.classList.remove('lock-scroll');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
           document.body.classList.add('lock-scroll');
@@ -357,6 +361,10 @@
         updateScreen();
       } else {
         document.body.classList.remove('lock-scroll');
+        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
+        setTimeout(() => {
+          document.body.classList.add('lock-scroll');
+        }, 500);
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
       }
     });
