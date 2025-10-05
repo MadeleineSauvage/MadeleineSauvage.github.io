@@ -74,13 +74,11 @@
       margin-bottom: 5px;
       transform: translateX(-40px);
     }
-
-    .cd-screen .left-column img.album-art {
-      width: 350px;   /* adjust size here */
-      height: auto;
+    .cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
+      height: 45vh;     /* 45% of the viewport height */
+      width: auto;      /* keep proportions */
       object-fit: cover;
     }
-
     /* Right column */
     .right-column {
       max-width: 40%;
