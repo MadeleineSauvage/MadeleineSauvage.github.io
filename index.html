@@ -55,31 +55,29 @@
       text-align: center;
     }
 
-    .left-columns-wrapper{
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      display: flex;
-    }
-    
-    .left-column-images {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100vh;          /* column matches screen height */
-      width: 160px;           /* << control how skinny the column is */
-      display: flex;
-      flex-direction: column;
-      gap: 0px;               /* little gap between images */
-    }
+    .left-columns-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+}
 
-    .left-column-images img {
-      width: 100%;            /* fit inside the skinny column */
-      height: auto;           /* keep proportions */
-      flex: 1;
-      object-fit: cover;
-    }
+.left-column-images {
+  /* remove absolute positioning */
+  height: 100vh;         /* each column fills the height */
+  width: 160px;          /* control column width */
+  display: flex;
+  flex-direction: column;
+  gap: 0;                /* spacing between images */
+}
+
+.left-column-images img {
+  width: 100%;           /* fit inside column */
+  height: auto;          /* keep proportions */
+  flex: 1;               /* let them stretch to fill space equally */
+  object-fit: cover;
+}
 
     .album-art {
       width: 400px;
@@ -360,7 +358,7 @@
     <!-- Screen for cd4.png (About Me) -->
     <div class="cd-screen" data-cd="assets/cd4.png">
       <div class="screen-content-custom">
-        <div class="left-columns-wrapper"
+        <div class="left-columns-wrapper">
           <div class="left-column-images">
             <img src="assets/leo.jpg" alt="Songs of leonard cohen">
             <img src="assets/ants.jpg" alt="Stacked 2">
