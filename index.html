@@ -13,6 +13,7 @@
 
     body {
       font-family: Arial, sans-serif;
+      background: #ffffff;
       overflow-x: hidden;
     }
 
@@ -43,6 +44,7 @@
       align-items: center;
       opacity: 0;
       transition: opacity 0.5s ease;
+      background: #ffffff;
       padding: 40px;
     }
 
@@ -55,12 +57,54 @@
       text-align: center;
     }
 
-    .album-art {
+    .screen-content-custom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 90%;
+      max-width: 1200px;
+      gap: 40px;
+    }
+
+    .text-column {
+      flex: 0 0 250px;
+      text-align: left;
+    }
+
+    .text-column p {
+      font-size: 0.95em;
+      line-height: 1.6;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .center-image {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+
+    .album-art-large {
       width: 400px;
       height: 400px;
       object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .small-title {
+      font-size: 1.5em;
+      color: #333;
+      margin: 0;
+    }
+
+    .album-art {
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     }
 
     .screen-content h1 {
@@ -80,40 +124,6 @@
       font-size: 1.2em;
       color: #999;
       margin-bottom: 20px;
-    }
-
-    /* === Custom two-column layout === */
-    .screen-content-custom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-    }
-
-    /* Left side (image + title) */
-    .left-column {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
-    }
-
-    .left-column img.album-art {
-      width: 400px;
-      height: auto;
-      object-fit: cover;
-      margin-left: 0;
-      margin-bottom: 5px;   
-      transform: translateX(-40px);
-    }
-
-    /* Right side (paragraph) */
-    .right-column {
-      max-width: 35%;
-      text-align: right;
-      margin-right: 0;
-      padding-right: 40px;
     }
 
     .description {
@@ -155,7 +165,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: 50%; 
       background: transparent;
       transition: transform 0.25s ease;
     }
@@ -165,7 +175,7 @@
     }
 
     .cd.spinning {
-      transform: scale(1.15) translateY(-15px);
+      transform: scale(1.15) translateY(-15px); 
       z-index: 3;
     }
 
@@ -210,7 +220,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: 50%; 
       background: transparent;
       pointer-events: none;
     }
@@ -224,27 +234,6 @@
     .swap-animate {
       transform: scale(0.8);
     }
-
-    /* === Fruit banner (only on first CD screen) === */
-    .cd-screen[data-cd="assets/cd.png"] .fruit-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 150px;
-      background-image: url("assets/fruit.png");
-      background-repeat: repeat-x;
-      background-size: 150px auto;
-      z-index: 10;
-    }
-
-    .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
-      margin-top: 140px; /* push content below banner */
-    }
-
-    .cd-screen[data-cd="assets/cd.png"] {
-  background-color: #ffffff; /* pick your color */
-    }
   </style>
 </head>
 <body>
@@ -252,16 +241,18 @@
   <div class="content-screens">
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
-      <!-- Banner -->
-      <div class="fruit-banner"></div>
-
       <div class="screen-content-custom">
-        <div class="left-column">
-          <img src="assets/IMG_0151.png" alt="Album Art" class="album-art">
-          <img src="assets/IMG_0159.png" alt="Album Art 2" class="album-art">
-          <h1 class="small-title">@katiealicemakes</h1>
+        <div class="text-column left-column">
+          <p>This is the first paragraph of text that will appear on the left side of the page. You can write whatever you want here about the project or album.</p>
+          <p>This is a second paragraph with more details, information, or story that you want to share about this particular CD.</p>
         </div>
-        <div class="right-column">
+        <div class="center-image">
+          <img src="assets/IMG_0151.jpeg" alt="Album Art" class="album-art-large">
+          <h1 class="small-title">Album Title One</h1>
+        </div>
+        <div class="text-column right-column">
+          <p>This is the first paragraph on the right side. It can contain different information, maybe technical details or personal notes.</p>
+          <p>And here's another paragraph on the right with additional content that complements the left side text.</p>
         </div>
       </div>
     </div>
@@ -269,7 +260,7 @@
     <!-- Screen for cd1.png -->
     <div class="cd-screen" data-cd="assets/cd1.png">
       <div class="screen-content">
-        <img src="assets/album2-art.png" alt="Album Art" class="album-art">
+        <img src="assets/album2-art.jpg" alt="Album Art" class="album-art">
         <h1>Album Title Two</h1>
         <h2>Different Artist</h2>
         <p>Released 2023</p>
@@ -282,7 +273,7 @@
     <!-- Screen for cd3.png -->
     <div class="cd-screen" data-cd="assets/cd3.png">
       <div class="screen-content">
-        <img src="assets/album3-art.png" alt="Album Art" class="album-art">
+        <img src="assets/album3-art.jpg" alt="Album Art" class="album-art">
         <h1>Album Title Three</h1>
         <h2>Third Artist</h2>
         <p>Released 2025</p>
@@ -306,6 +297,7 @@
   <div class="carousel-section">
     <div class="carousel-container">
       <div class="carousel-track" id="carouselTrack">
+        <!-- Base set of CDs -->
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
@@ -326,6 +318,7 @@
       document.body.classList.add('lock-scroll');
     });
 
+    // Main CD spin toggle
     const mainCD = document.getElementById('mainCD');
     const mainCDImg = mainCD.querySelector('img');
     let isSpinning = false;
@@ -334,6 +327,7 @@
     function updateScreen() {
       const currentCDSrc = mainCDImg.src;
       const allScreens = document.querySelectorAll('.cd-screen');
+      
       allScreens.forEach(screen => {
         const screenCD = screen.getAttribute('data-cd');
         if (currentCDSrc.includes(screenCD)) {
@@ -347,6 +341,7 @@
     mainCD.addEventListener('click', () => {
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
+      
       if (isSpinning) {
         originalScrollPos = window.scrollY;
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -367,6 +362,7 @@
     const cdWidth = 150 + 30;
     const totalCDs = cds.length;
 
+    // Clone sets
     const cloneBefore = cds.map(cd => cd.cloneNode(true));
     const cloneAfter = cds.map(cd => cd.cloneNode(true));
     cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
@@ -383,10 +379,12 @@
       const container = document.querySelector('.carousel-container');
       const containerCenter = container.offsetWidth / 2;
       const allCDs = document.querySelectorAll('.carousel-cd');
+      
       allCDs.forEach(cd => {
         const rect = cd.getBoundingClientRect();
         const cdCenter = rect.left + rect.width / 2;
         const distanceFromCenter = Math.abs(cdCenter - containerCenter);
+        
         if (distanceFromCenter < 200) {
           cd.classList.add('center');
         } else {
@@ -405,6 +403,7 @@
       updateCenterCDs();
     }
 
+    // Touch events
     track.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       startTranslate = currentTranslate;
@@ -424,6 +423,7 @@
       normalizePosition();
     });
 
+    // Trackpad / mouse wheel swipe
     const container = document.querySelector('.carousel-container');
     container.addEventListener('wheel', (e) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
@@ -434,20 +434,26 @@
       }
     }, { passive: false });
 
+    // Initial center update
     updateCenterCDs();
 
+    // === SWAP FUNCTIONALITY (with bounce) ===
     function addSwapListeners() {
       const allCDs = document.querySelectorAll('.carousel-cd img');
       allCDs.forEach(cdImg => {
         cdImg.parentElement.addEventListener('click', () => {
           const tempSrc = mainCDImg.src;
+
           mainCDImg.classList.add('swap-animate');
           cdImg.classList.add('swap-animate');
+
           setTimeout(() => {
             mainCDImg.src = cdImg.src;
             cdImg.src = tempSrc;
+
             mainCDImg.classList.remove('swap-animate');
             cdImg.classList.remove('swap-animate');
+
             if (isSpinning) {
               updateScreen();
             }
