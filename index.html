@@ -54,6 +54,24 @@
       max-width: 800px;
       text-align: center;
     }
+    
+    .left-column-images {
+    display: flex;
+    flex-direction: column;
+    gap: 0;              /* no gaps between images */
+    margin: 0;
+    padding: 0;
+    position: absolute;  /* stick to the very left of screen */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    }
+
+  .left-column-images img {
+  width: 120px;        /* adjust size as you like */
+  height: auto;
+  display: block;
+  }
 
     .album-art {
       width: 400px;
@@ -334,6 +352,12 @@
     <!-- Screen for cd4.png (About Me) -->
     <div class="cd-screen" data-cd="assets/cd4.png">
       <div class="screen-content-custom">
+        <div class="left-column-images">
+          <img src="assets/img1.png" alt="Stacked 1">
+          <img src="assets/img2.png" alt="Stacked 2">
+          <img src="assets/img3.png" alt="Stacked 3">
+        </div>
+
         <div class="right-column">
           <h2 class="about-title">ABOUT ME</h2>
             <p>
