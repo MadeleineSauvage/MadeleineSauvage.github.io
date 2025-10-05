@@ -13,11 +13,11 @@
 
     body {
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      position: fixed;
-      width: 100%;
-      height: 100%;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     body.lock-scroll {
@@ -132,7 +132,7 @@
     }
 
     .spacer {
-      height: 70vh;
+      display: none;
     }
 
     /* Main CD */
@@ -325,7 +325,6 @@
   <script>
     // Scroll to bottom on load
     window.addEventListener('load', () => {
-      window.scrollTo(0, document.body.scrollHeight);
       document.body.classList.add('lock-scroll');
     });
 
@@ -351,7 +350,6 @@
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
       if (isSpinning) {
-        originalScrollPos = window.scrollY;
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
           document.body.classList.add('lock-scroll');
@@ -359,7 +357,6 @@
         updateScreen();
       } else {
         document.body.classList.remove('lock-scroll');
-        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
       }
     });
