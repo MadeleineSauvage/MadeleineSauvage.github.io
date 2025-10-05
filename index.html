@@ -13,12 +13,11 @@
 
     body {
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
-
-    body.lock-scroll {
       overflow: hidden;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: white;
     }
 
     /* Content screens - hidden behind */
@@ -128,17 +127,12 @@
       line-height: 1.6;
     }
 
-    .spacer {
-      height: 70vh;
-    }
-
     /* Main CD */
     .main-cd-container {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 60px;
-      padding: 40px 0;
       position: relative;
       z-index: 2;
     }
@@ -181,10 +175,8 @@
     /* Carousel */
     .carousel-section {
       width: 100%;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      z-index: 10;
+      position: relative;
+      z-index: 2;
       background: white;
       padding: 20px 0;
     }
@@ -243,11 +235,11 @@
     }
 
     .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
-      margin-top: 140px; /* push content below banner */
+      margin-top: 140px;
     }
 
     .cd-screen[data-cd="assets/cd.png"] {
-  background-color: #ffffff; /* pick your color */
+      background-color: #ffffff;
     }
   </style>
 </head>
@@ -296,8 +288,6 @@
       </div>
     </div>
   </div>
-
-  <div class="spacer"></div>
   
   <!-- Main CD -->
   <div class="main-cd-container">
@@ -324,16 +314,9 @@
   </div>
 
   <script>
-    // Scroll to bottom on load
-    window.addEventListener('load', () => {
-      window.scrollTo(0, document.body.scrollHeight);
-      document.body.classList.add('lock-scroll');
-    });
-
     const mainCD = document.getElementById('mainCD');
     const mainCDImg = mainCD.querySelector('img');
     let isSpinning = false;
-    let originalScrollPos = 0;
 
     function updateScreen() {
       const currentCDSrc = mainCDImg.src;
@@ -352,19 +335,8 @@
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
       if (isSpinning) {
-        originalScrollPos = window.scrollY;
-        document.body.classList.remove('lock-scroll');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => {
-          document.body.classList.add('lock-scroll');
-        }, 500);
         updateScreen();
       } else {
-        document.body.classList.remove('lock-scroll');
-        window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
-        setTimeout(() => {
-          document.body.classList.add('lock-scroll');
-        }, 500);
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
       }
     });
