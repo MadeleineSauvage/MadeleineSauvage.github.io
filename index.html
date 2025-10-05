@@ -13,22 +13,29 @@
 
     body {
       font-family: Arial, sans-serif;
-      overflow: hidden;
+      overflow: hidden; /* no scrollbars */
       height: 100vh;
       display: flex;
       flex-direction: column;
       background: white;
     }
 
-    /* Content screens - hidden behind */
+    /* === Content screens === */
     .content-screens {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateY(100%); /* hidden below view */
+      transition: transform 0.8s ease;
+      z-index: 1;
       pointer-events: none;
-      z-index: 0;
+    }
+
+    .content-screens.active {
+      transform: translateY(0); /* slides into view */
+      pointer-events: auto;
     }
 
     .cd-screen {
@@ -43,6 +50,7 @@
       opacity: 0;
       transition: opacity 0.5s ease;
       padding: 40px;
+      background: white;
     }
 
     .cd-screen.active {
@@ -90,7 +98,6 @@
       width: 100%;
     }
 
-    /* Left side (image + title) */
     .left-column {
       display: flex;
       flex-direction: column;
@@ -103,11 +110,10 @@
       height: auto;
       object-fit: cover;
       margin-left: 0;
-      margin-bottom: 5px;   
+      margin-bottom: 5px;
       transform: translateX(-40px);
     }
 
-    /* Right side (paragraph) */
     .right-column {
       max-width: 35%;
       text-align: right;
@@ -127,7 +133,7 @@
       line-height: 1.6;
     }
 
-    /* Main CD */
+    /* === Main CD === */
     .main-cd-container {
       flex: 1;
       display: flex;
@@ -172,7 +178,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Carousel */
+    /* === Carousel === */
     .carousel-section {
       width: 100%;
       position: relative;
@@ -221,7 +227,7 @@
       transform: scale(0.8);
     }
 
-    /* === Fruit banner (only on first CD screen) === */
+    /* Fruit banner */
     .cd-screen[data-cd="assets/cd.png"] .fruit-banner {
       position: fixed;
       top: 0;
@@ -237,28 +243,21 @@
     .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
       margin-top: 140px;
     }
-
-    .cd-screen[data-cd="assets/cd.png"] {
-      background-color: #ffffff;
-    }
   </style>
 </head>
 <body>
-  <!-- Content screens for each CD -->
+  <!-- Content screens -->
   <div class="content-screens">
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
-      <!-- Banner -->
       <div class="fruit-banner"></div>
-
       <div class="screen-content-custom">
         <div class="left-column">
           <img src="assets/IMG_0151.png" alt="Album Art" class="album-art">
           <img src="assets/IMG_0159.png" alt="Album Art 2" class="album-art">
           <h1 class="small-title">@katiealicemakes</h1>
         </div>
-        <div class="right-column">
-        </div>
+        <div class="right-column"></div>
       </div>
     </div>
 
@@ -288,7 +287,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Main CD -->
   <div class="main-cd-container">
     <div class="cd" id="mainCD">
@@ -303,11 +302,7 @@
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
-        <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd4.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
       </div>
     </div>
@@ -334,14 +329,18 @@
     mainCD.addEventListener('click', () => {
       isSpinning = !isSpinning;
       mainCD.classList.toggle('spinning');
+      const contentScreens = document.querySelector('.content-screens');
+
       if (isSpinning) {
         updateScreen();
+        contentScreens.classList.add('active'); // slide content up
       } else {
         document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
+        contentScreens.classList.remove('active'); // slide content down
       }
     });
 
-    // Carousel loop
+    // Carousel loop (same as before)
     const track = document.getElementById('carouselTrack');
     const cds = Array.from(track.children);
     const cdWidth = 150 + 30;
@@ -355,9 +354,6 @@
     const loopWidth = cdWidth * totalCDs;
     let currentTranslate = -loopWidth;
     track.style.transform = `translateX(${currentTranslate}px)`;
-
-    let startX;
-    let startTranslate = 0;
 
     function updateCenterCDs() {
       const container = document.querySelector('.carousel-container');
@@ -374,45 +370,6 @@
         }
       });
     }
-
-    function normalizePosition() {
-      if (currentTranslate > -cdWidth) {
-        currentTranslate -= loopWidth;
-      } else if (currentTranslate < -loopWidth * 2) {
-        currentTranslate += loopWidth;
-      }
-      track.style.transform = `translateX(${currentTranslate}px)`;
-      updateCenterCDs();
-    }
-
-    track.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startTranslate = currentTranslate;
-    });
-
-    track.addEventListener('touchmove', (e) => {
-      if (!startX) return;
-      const currentX = e.touches[0].clientX;
-      const diff = (currentX - startX) * 0.5;
-      currentTranslate = startTranslate + diff;
-      track.style.transform = `translateX(${currentTranslate}px)`;
-      updateCenterCDs();
-    });
-
-    track.addEventListener('touchend', () => {
-      startX = null;
-      normalizePosition();
-    });
-
-    const container = document.querySelector('.carousel-container');
-    container.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        e.preventDefault();
-        currentTranslate -= e.deltaX * 0.3;
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        normalizePosition();
-      }
-    }, { passive: false });
 
     updateCenterCDs();
 
