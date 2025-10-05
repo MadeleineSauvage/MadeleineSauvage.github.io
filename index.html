@@ -14,8 +14,6 @@
     body {
       font-family: Garamond, serif;
       overflow-x: hidden;
-      cursor: url('assets/cursor.png') 16 16, auto; 
-
     }
 
     body.lock-scroll {
@@ -175,7 +173,7 @@
 
     .carousel-track {
       display: flex;
-      gap: 15px;
+      gap: 10px;
       padding: 20px;
       user-select: none;
     }
@@ -413,7 +411,7 @@
     // Carousel loop
     const track = document.getElementById('carouselTrack');
     const cds = Array.from(track.children);
-    const cdWidth = 150 + 15;
+    const cdWidth = 150 + 10;
     const totalCDs = cds.length;
 
     const cloneBefore = cds.map(cd => cd.cloneNode(true));
