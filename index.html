@@ -21,7 +21,7 @@
       height: 100vh;
     }
 
-    /* Content screens - hidden behind */
+    /* Content screens */
     .content-screens {
       position: fixed;
       top: 0;
@@ -55,30 +55,6 @@
       text-align: center;
     }
 
-    .left-columns-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  display: flex;
-}
-
-.left-column-images {
-  /* remove absolute positioning */
-  height: 100vh;         /* each column fills the height */
-  width: 160px;          /* control column width */
-  display: flex;
-  flex-direction: column;
-  gap: 0;                /* spacing between images */
-}
-
-.left-column-images img {
-  width: 100%;           /* fit inside column */
-  height: auto;          /* keep proportions */
-  flex: 1;               /* let them stretch to fill space equally */
-  object-fit: cover;
-}
-
     .album-art {
       width: 400px;
       height: 400px;
@@ -106,7 +82,7 @@
       margin-bottom: 20px;
     }
 
-    /* === Custom two-column layout === */
+    /* === Custom layout === */
     .screen-content-custom {
       display: flex;
       justify-content: space-between;
@@ -115,7 +91,6 @@
       width: 100%;
     }
 
-    /* Left side (image + title) */
     .left-column {
       display: flex;
       flex-direction: column;
@@ -132,7 +107,6 @@
       transform: translateX(-40px);
     }
 
-    /* Right side (paragraph) */
     .right-column {
       max-width: 35%;
       text-align: right;
@@ -244,12 +218,12 @@
       z-index: 2;
     }
 
-    /* Bounce effect */
+    /* Bounce */
     .swap-animate {
       transform: scale(0.8);
     }
 
-    /* === Fruit banner (only on first CD screen) === */
+    /* Fruit banner */
     .cd-screen[data-cd="assets/cd.png"] .fruit-banner {
       position: fixed;
       top: 0;
@@ -263,18 +237,18 @@
     }
 
     .cd-screen[data-cd="assets/cd.png"] .screen-content-custom {
-      margin-top: 140px; /* push content below banner */
+      margin-top: 140px;
     }
 
     .cd-screen[data-cd="assets/cd.png"] {
-      background-color: #ffffff; /* pick your color */
+      background-color: #ffffff;
     }
 
     /* === About Me page (cd4) === */
     .cd-screen[data-cd="assets/cd4.png"] {
       background-color: #faf9f6;
       display: flex;
-      justify-content: flex-end; /* push box to right */
+      justify-content: flex-end;
       align-items: center;
       padding: 40px;
       text-align: right;
@@ -309,16 +283,32 @@
       color: #333;
       text-align: right;
     }
+
+    /* === NEW 4x4 grid === */
+    .left-columns-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 50%; /* take half the screen */
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
+
+    .left-columns-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
-  <!-- Content screens for each CD -->
+  <!-- Content screens -->
   <div class="content-screens">
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd.png">
-      <!-- Banner -->
       <div class="fruit-banner"></div>
-
       <div class="screen-content-custom">
         <div class="left-column">
           <img src="assets/IMG_0151.png" alt="Album Art" class="album-art">
@@ -359,28 +349,33 @@
     <div class="cd-screen" data-cd="assets/cd4.png">
       <div class="screen-content-custom">
         <div class="left-columns-wrapper">
-          <div class="left-column-images">
-            <img src="assets/leo.jpg" alt="Songs of leonard cohen">
-            <img src="assets/ants.jpg" alt="Stacked 2">
-            <img src="assets/adrianne.jpg" alt="Stacked 3">
-            <img src="assets/ladder.jpg" alt="Stacked 3">
-          </div>
-
-          <div class="left-column-images">
-            <img src="assets/mobo.jpg" alt="Songs of leonard cohen">
-            <img src="assets/wave.jpg" alt="Stacked 2">
-            <img src="assets/murder.jpg" alt="Stacked 3">
-            <img src="assets/slept.jpg" alt="Stacked 3">
-          </div>
+          <img src="assets/leo.jpg" alt="">
+          <img src="assets/ants.jpg" alt="">
+          <img src="assets/adrianne.jpg" alt="">
+          <img src="assets/ladder.jpg" alt="">
+          <img src="assets/mobo.jpg" alt="">
+          <img src="assets/wave.jpg" alt="">
+          <img src="assets/murder.jpg" alt="">
+          <img src="assets/slept.jpg" alt="">
+          <img src="assets/iver.jpg" alt="">
+          <img src="assets/chip.jpg" alt="">
+          <img src="assets/block.jpg" alt="">
+          <img src="assets/eno.jpg" alt="">
+          <img src="assets/eels.jpg" alt="">
+          <img src="assets/pawn.jpg" alt="">
+          <img src="assets/deja.jpg" alt="">
+          <img src="assets/mind.jpg" alt="">
         </div>
 
         <div class="right-column">
           <h2 class="about-title">ABOUT ME</h2>
-            <p>
-              Hi! I’m Madeleine, a Postgraduate Researcher in the safety of AI. My focus is on the lifelong safety of dynamic 
-              recommender systems using uncertainty to improve recommendations for long-tail items. I love knitting, reading, and gardening, and collecting CDs. 
-              This website is to document my coding, research, knitting, and sewing projects.
-            </p>
+          <p>
+            Hi! I’m Madeleine, a Postgraduate Researcher in the safety of AI.  
+            My focus is on the lifelong safety of dynamic recommender systems  
+            using uncertainty to improve recommendations for long-tail items.  
+            I love knitting, reading, and gardening, and collecting CDs.  
+            This website is to document my coding, research, knitting, and sewing projects.
+          </p>
         </div>
       </div>
     </div>
