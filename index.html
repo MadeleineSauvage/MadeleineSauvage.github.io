@@ -23,11 +23,23 @@
       height: 100vh;
     }
 
+    /* Hide scrollbar but keep scroll functionality */
+    body {
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    body::-webkit-scrollbar {
+      display: none;          /* Chrome, Safari */
+    }
+
+
     /* ========== MAIN PAGE BACKGROUND ========== */
     .main-page-background {
       background: url('assets/back.jpeg') center/cover no-repeat;
       position: fixed;
       inset: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
       opacity: 0.35; /* makes it slightly translucent */
       transition: opacity 0.05s ease;
