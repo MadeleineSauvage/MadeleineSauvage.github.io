@@ -174,7 +174,7 @@
 
     .carousel-track {
       display: flex;
-      gap: 20px;
+      gap: 0px;
       padding: 20px;
       user-select: none;
     }
@@ -416,7 +416,7 @@
     // Carousel loop
     const track = document.getElementById('carouselTrack');
     const cds = Array.from(track.children);
-    const cdWidth = 150 + 20;
+    const cdWidth = 150 + 0;
     const totalCDs = cds.length;
 
     const cloneBefore = cds.map(cd => cd.cloneNode(true));
