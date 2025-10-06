@@ -158,6 +158,11 @@
       to { transform: rotate(360deg); }
     }
 
+    .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
+      height: 50vh;      /* each image takes up half the screen height */
+      width: auto;       /* keep proportions */
+      object-fit: cover; /* crop nicely if needed */}
+
     /* Carousel */
     .carousel-section {
       width: 100%;
@@ -297,6 +302,8 @@
         </div>
       </div>
     </div>
+
+
     
     <!-- Screen for cd.png -->
     <div class="cd-screen" data-cd="assets/cd1.png">
