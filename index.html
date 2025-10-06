@@ -237,6 +237,19 @@
     }
 
     /* ========== SCREEN-SPECIFIC STYLES ========== */
+
+        /* Fix image cropping only on the Hanni Cardigan screen */
+    .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      object-fit: contain; /* show full image, no cropping */
+    }
+
+    .cd-screen[data-cd="assets/cd1.png"] .left-column {
+      flex-shrink: 0; /* prevent flex compression */
+    }
+
     .cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
       height: 45vh;
     }
