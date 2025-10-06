@@ -30,7 +30,7 @@
       inset: 0;
       z-index: -1;
       opacity: 0.45; /* makes it slightly translucent */
-      transition: opacity 0.5s ease;
+      transition: opacity 0.05s ease;
     }
 
     /* When content screens are active (body.lock-scroll) fade out bg */
@@ -335,7 +335,9 @@
   // === Scroll to bottom on load ===
   window.addEventListener('load', () => {
     window.scrollTo(0, document.body.scrollHeight);
+    setTimeout(() => {
     document.body.classList.add('lock-scroll');
+    }, 1200);
   });
 
   const mainCD = document.getElementById('mainCD');
