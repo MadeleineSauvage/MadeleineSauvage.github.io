@@ -29,14 +29,14 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      opacity: 0.45; /* makes it slightly translucent */
+      opacity: 0.35; /* makes it slightly translucent */
       transition: opacity 0.05s ease;
     }
 
     /* When content screens are active (body.lock-scroll) fade out bg */
-    body.lock-scroll .main-page-background {
-      opacity: 0;
-    }
+      body.showing-screen .main-page-background {
+        opacity: 0;
+      }
 
     /* ========== CONTENT SCREENS ========== */
     .content-screens {
@@ -364,16 +364,16 @@
     isSpinning = !isSpinning;
     mainCD.classList.toggle('spinning');
 
-    if (isSpinning) {
-      originalScrollPos = window.scrollY;
+  if (isSpinning) {
+    originalScrollPos = window.scrollY;
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(() => document.body.classList.add('lock-scroll'), 500);
-      updateScreen();
-    } else {
-      document.body.classList.remove('lock-scroll');
-      window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
-      document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
-    }
+    document.body.classList.add('lock-scroll', 'showing-screen');
+    updateScreen();
+  } else {
+    document.body.classList.remove('lock-scroll', 'showing-screen');
+    window.scrollTo({ top: originalScrollPos, behavior: 'smooth' });
+    document.querySelectorAll('.cd-screen').forEach(s => s.classList.remove('active'));
+  }
   });
 
   // === Carousel setup ===
