@@ -301,31 +301,41 @@
       </div>
     </div>
 
-    <!-- Screen for cd5.png -->
-    <div class="cd-screen" data-cd="assets/cd5.png">
-      <div class="screen-content-custom">
-        <div class="left-column">
-          <img src="assets/hdbscan.png" alt="Album Art" class="album-art">
-          <img src="assets/models.png" alt="Album Art 2" class="album-art">
-          <img src="assets/pipeline.png" alt="Album Art 2" class="album-art">
-        </div>
-        <div class="right-column">
-          <h2 class="screen-title">GOODREADS RECOMMENDER SYSTEM</h2>
-          <h3 class="screen-subtitle">My Final Year Dissertation</h3>
-          <p class="screen-text">
-            Manual selection and bestseller lists tend to favour popular
-            books, overlooking lesser-known titles and limiting exploration. Despite its popularity, 
-            Goodreads struggles to provide personalised and transparent recommendations due 
-            to its outdated design and popularity-driven algorithms. Traditional collaborative filtering 
-            struggles with cold-start users who lack interaction history, and content-filtering 
-            can enforce bias and limit exploration. To address these issues, this project 
-            explores a hybrid recommendationsystem designed to be more accurate, novel, and transparent, even with sparse data.
-            <br>
-            <a href="assets/recsys.pdf" target = "_blank" type = "application/pdf">see the full paper here</a>          
-          </p>
-        </div>
-      </div>
+<!-- Screen for cd5.png -->
+<div class="cd-screen" data-cd="assets/cd5.png">
+  <div class="screen-content-custom">
+    <!-- Left column text -->
+    <div class="left-column">
+      <h2 class="screen-title">GOODREADS RECOMMENDER SYSTEM</h2>
+      <h3 class="screen-subtitle">My Final Year Dissertation</h3>
+      <p class="screen-text">
+        This project aimed to improve book recommendation quality on Goodreads by exploring a hybrid recommendation approach that balances accuracy, novelty, and transparency.
+        Traditional collaborative filtering often struggles with sparse user data, while content-based filtering can reinforce existing preferences and limit discovery.
+      </p>
+      <p class="screen-text">
+        To address these challenges, this system integrates both approaches with unsupervised clustering, helping connect readers with niche books that align with their interests but lie outside their usual reading habits.
+      </p>
     </div>
+
+    <!-- Right column text -->
+    <div class="right-column">
+      <p class="screen-text">
+        The model was evaluated using the Goodreads dataset, incorporating user ratings, genres, and author information.
+        A hybrid neural network architecture combined user-item embeddings with book metadata to produce interpretable recommendations.
+      </p>
+      <p class="screen-text">
+        Transparency was achieved by visualizing model explanations through SHAP values, allowing users to understand why certain books were suggested.
+        The goal was to make recommendation systems not just accurate, but understandable and fair.
+      </p>
+      <p class="screen-text">
+        <a href="assets/recsys.pdf" target="_blank" type="application/pdf">
+          View the full dissertation here
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
 
     <!-- Screen for cd4.png (About Me) -->
     <div class="cd-screen" data-cd="assets/cd4.png">
