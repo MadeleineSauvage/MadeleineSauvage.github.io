@@ -468,9 +468,7 @@
     if (isSpinning) {
       originalScrollPos = window.scrollY;
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(() => {
-        document.body.classList.add('lock-scroll');
-      }, 500);
+      setTimeout(() => document.body.classList.add('lock-scroll'), 500);
       updateScreen();
     } else {
       document.body.classList.remove('lock-scroll');
@@ -492,32 +490,34 @@
   cloneAfter.forEach(c => track.appendChild(c));
 
   const loopWidth = cdWidth * totalCDs;
-  let currentTranslate = -loopWidth;
+  let targetTranslate = -loopWidth;
+  let currentTranslate = targetTranslate;
+  let velocity = 0;
   let startX = 0;
   let prevX = 0;
-  let velocity = 0;
+  let dragging = false;
   let animationFrame;
-
-  function setTranslateX(x) {
-    track.style.transform = `translateX(${x}px)`;
-  }
 
   function normalizePosition() {
     if (currentTranslate > -cdWidth) {
       currentTranslate -= loopWidth;
+      targetTranslate -= loopWidth;
     } else if (currentTranslate < -loopWidth * 2) {
       currentTranslate += loopWidth;
+      targetTranslate += loopWidth;
     }
-    setTranslateX(currentTranslate);
   }
 
-  // === Smooth momentum scroll ===
+  // === Smoother animation loop ===
   function animateScroll() {
-    currentTranslate += velocity;
-    velocity *= 0.95; // friction
+    const diff = targetTranslate - currentTranslate;
+    currentTranslate += diff * 0.15; // easing factor
+    targetTranslate += velocity;
+    velocity *= 0.93; // slower friction
     normalizePosition();
-    setTranslateX(currentTranslate);
-    if (Math.abs(velocity) > 0.1) {
+    track.style.transform = `translateX(${currentTranslate}px)`;
+
+    if (dragging || Math.abs(velocity) > 0.1 || Math.abs(diff) > 0.1) {
       animationFrame = requestAnimationFrame(animateScroll);
     } else {
       cancelAnimationFrame(animationFrame);
@@ -525,39 +525,33 @@
     }
   }
 
-  function stopMomentum() {
-    cancelAnimationFrame(animationFrame);
-    animationFrame = null;
-  }
-
   function startDrag(x) {
-    stopMomentum();
+    dragging = true;
     startX = x;
     prevX = x;
+    velocity = 0;
+    if (!animationFrame) animationFrame = requestAnimationFrame(animateScroll);
   }
 
   function moveDrag(x) {
+    if (!dragging) return;
     const diff = x - prevX;
-    currentTranslate += diff;
+    targetTranslate += diff;
     velocity = diff;
     prevX = x;
-    setTranslateX(currentTranslate);
   }
 
   function endDrag() {
-    startX = 0;
-    if (!animationFrame) requestAnimationFrame(animateScroll);
+    dragging = false;
   }
 
   // === Mouse & touch support ===
   track.addEventListener('mousedown', e => startDrag(e.clientX));
-  window.addEventListener('mousemove', e => { if (startX) moveDrag(e.clientX); });
+  window.addEventListener('mousemove', e => moveDrag(e.clientX));
   window.addEventListener('mouseup', endDrag);
 
   track.addEventListener('touchstart', e => startDrag(e.touches[0].clientX));
-  window.addEventListener('touchmove', e => {
-    if (startX) moveDrag(e.touches[0].clientX);
-  });
+  window.addEventListener('touchmove', e => moveDrag(e.touches[0].clientX));
   window.addEventListener('touchend', endDrag);
 
   // === Wheel scroll ===
@@ -565,36 +559,34 @@
   container.addEventListener('wheel', e => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
       e.preventDefault();
-      velocity -= e.deltaX * 0.05;
-      if (!animationFrame) requestAnimationFrame(animateScroll);
+      velocity -= e.deltaX * 0.03; // smoother wheel
+      if (!animationFrame) animationFrame = requestAnimationFrame(animateScroll);
     }
   }, { passive: false });
 
-  // === CD swapping logic ===
+  // === CD swapping ===
   function addSwapListeners() {
     const allCDs = document.querySelectorAll('.carousel-cd img');
     allCDs.forEach(cdImg => {
       cdImg.parentElement.onclick = () => {
         const tempSrc = mainCDImg.src;
-
         mainCDImg.classList.add('swap-animate');
         cdImg.classList.add('swap-animate');
-
         setTimeout(() => {
           mainCDImg.src = cdImg.src;
           cdImg.src = tempSrc;
           mainCDImg.classList.remove('swap-animate');
           cdImg.classList.remove('swap-animate');
-
           if (isSpinning) updateScreen();
-
-          // ✅ Rebind after swap to keep functionality
-          addSwapListeners();
+          addSwapListeners(); // rebind
         }, 200);
       };
     });
   }
 
   addSwapListeners();
+  animationFrame = requestAnimationFrame(animateScroll);
 </script>
+</body>
+</html>
 
