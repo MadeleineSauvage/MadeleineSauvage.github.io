@@ -267,7 +267,7 @@
     }
 
     .cd-screen[data-cd="assets/cd2.png"] .left-column img.album-art {
-      height: 38vh;
+      height: 50vh;
     }
 
     /* About Me (cd4) */
@@ -281,6 +281,41 @@
 
     .cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
       justify-content: flex-end;
+    }
+
+      /* Custom layout for THE SICILY SLIPOVER screen */
+    .cd-screen[data-cd="assets/cd2.png"] .left-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* two columns */
+      grid-template-rows: auto auto;  /* let rows size naturally */
+      gap: 15px;
+      align-items: start;
+      justify-content: center;
+      margin-top: 5vh;
+    }
+
+/* Stack the 2nd and 3rd images vertically on the left */
+    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(1) {
+      grid-column: 2; /* stripe.jpeg on the right */
+      grid-row: 1 / span 2; /* spans both rows */
+      align-self: center;
+    }
+
+    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(2) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(3) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+/* Make them scale evenly without cropping */
+    .cd-screen[data-cd="assets/cd2.png"] .left-column img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
     }
 
     .about-title {
@@ -403,9 +438,9 @@
           <h2 class="screen-title">THE SICILY SLIPOVER</h2>
           <h3 class="screen-subtitle">@kisskissrhinestones</h3>
           <p class="screen-text">
-            Such a good pattern that I've made it 3 times! I made the cream vest plain at first but realised anything I wore underneath showed through in
-            an odd way. I used duplicate stitch to add the lyrics from 'Not a lot, just forever' by Adrianne Lenker and the bird motif. With the amount 
-            of yarn used for the bird it has made it the fabric quite stiff and thick, but steaming it loosened it slightly.
+            Such a good pattern that I've made it 3 times! I made the cream vest plain at first but realised anything I wore underneath showed through.
+            I used duplicate stitch to add the lyrics from 'Not a lot, just forever' by Adrianne Lenker and the bird motif. With the amount 
+            of yarn used for the bird it has made it the fabric quite stiff and thick, but steaming it loosened it 
             <br>
             I used the wrong kind of cast-off for the sleeves and neck of the striped vest so they are quite loose, I threaded through some elastic 
             instead of redoing it.
@@ -579,7 +614,7 @@
     const diff = targetTranslate - currentTranslate;
     currentTranslate += diff * 0.15; // easing factor
     targetTranslate += velocity;
-    velocity *= 0.93; // slower friction
+    velocity *= 0.8; // slower friction
     normalizePosition();
     track.style.transform = `translateX(${currentTranslate}px)`;
 
