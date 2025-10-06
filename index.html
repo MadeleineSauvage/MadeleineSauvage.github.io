@@ -223,101 +223,90 @@
       transform: scale(0.8);
     }
 
-    /* ========== SCREEN-SPECIFIC STYLES ========== */
+/* ========== SCREEN-SPECIFIC STYLES ========== */
 
-        /* Fix image cropping only on the Hanni Cardigan screen */
-    .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      object-fit: contain; /* show full image, no cropping */
-    }
+/* Fix image cropping only on the Hanni Cardigan screen */
+.cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+}
 
-    .cd-screen[data-cd="assets/cd1.png"] .left-column {
-      flex-shrink: 0; /* prevent flex compression */
-    }
+.cd-screen[data-cd="assets/cd1.png"] .left-column {
+  flex-shrink: 0;
+  margin-top: 0;
+  gap: 0;
+}
 
-    .cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      object-fit: contain; /* show full image, no cropping */
-    }
+.cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+}
 
-    .cd-screen[data-cd="assets/cd.png"] .left-column {
-      flex-shrink: 0; /* prevent flex compression */
-    }
+.cd-screen[data-cd="assets/cd.png"] .left-column {
+  flex-shrink: 0;
+}
 
-    .cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
-      height: 45vh;
-    }
+.cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
+  height: 45vh;
+}
 
-    .cd-screen[data-cd="assets/cd1.png"] .left-column {
-      margin-top: 0;
-      gap: 0;
-    }
+.cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
+  height: 50vh;
+}
 
-    .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
-      height: 50vh;
-    }
+.cd-screen[data-cd="assets/cd2.png"] .left-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns: left stack + right image */
+  grid-template-rows: auto auto;
+  column-gap: 20px; /* space between left stack and right image */
+  row-gap: 10px; /* space between top/bottom left images */
+  align-items: start;
+  justify-content: start;
+  margin-top: 0;
+  margin-left: 30px; /* add breathing room from screen edge */
+}
 
-    .cd-screen[data-cd="assets/cd2.png"] .left-column {
-      margin-top: 0;
-      gap: 0;
-    }
+/* Position the 3 images precisely */
+.cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(1) {
+  grid-column: 2; /* stripe.jpeg (right) */
+  grid-row: 1 / span 2;
+  align-self: start;
+}
 
-    .cd-screen[data-cd="assets/cd2.png"] .left-column img.album-art {
-      height: 50vh;
-    }
+.cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+}
 
-    /* About Me (cd4) */
-    .cd-screen[data-cd="assets/cd4.png"] {
-      background-color: #faf9f6;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 40px;
-    }
-
-    .cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
-      justify-content: flex-end;
-    }
-
-      /* Custom layout for THE SICILY SLIPOVER screen */
-    .cd-screen[data-cd="assets/cd2.png"] .left-column {
-      display: grid;
-      grid-template-columns: 1fr 1fr; /* two columns */
-      grid-template-rows: auto auto;  /* let rows size naturally */
-      column-gap: 5px;
-      row-gap: 5px;
-      align-items: start;
-      justify-content: center;
-      margin-top: 0vh;
-    }
-
-/* Stack the 2nd and 3rd images vertically on the left */
-    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(1) {
-      grid-column: 2; /* stripe.jpeg on the right */
-      grid-row: 1 / span 2; /* spans both rows */
-      align-self: center;
-    }
-
-    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(2) {
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    .cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(3) {
-      grid-column: 1;
-      grid-row: 2;
-    }
+.cd-screen[data-cd="assets/cd2.png"] .left-column img:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2;
+}
 
 /* Make them scale evenly without cropping */
-    .cd-screen[data-cd="assets/cd2.png"] .left-column img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-    }
+.cd-screen[data-cd="assets/cd2.png"] .left-column img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* About Me (cd4) */
+.cd-screen[data-cd="assets/cd4.png"] {
+  background-color: #faf9f6;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 40px;
+}
+
+.cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
+  justify-content: flex-end;
+}
+
 
     .about-title {
       font-family: Garamond, serif;
