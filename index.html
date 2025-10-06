@@ -32,6 +32,18 @@
       display: none;          /* Chrome, Safari */
     }
 
+    html {
+      overflow-y: scroll; /* reserves scrollbar space to prevent layout shift */
+    }
+
+    body {
+      scrollbar-width: none; /* Firefox */
+    }
+
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+
 
     /* ========== MAIN PAGE BACKGROUND ========== */
     .main-page-background {
@@ -42,7 +54,7 @@
       height: 100vh;
       z-index: -1;
       opacity: 0.45; /* makes it slightly translucent */
-      transition: opacity 0.05s ease;
+      transition: opacity 0.15s ease;
     }
 
     /* When content screens are active (body.lock-scroll) fade out bg */
@@ -472,10 +484,8 @@
   // === Scroll to bottom on load ===
   window.addEventListener('load', () => {
     window.scrollTo(0, document.body.scrollHeight);
-    setTimeout(() => {
-    document.body.classList.add('lock-scroll');
-    }, 1200);
   });
+
 
   const mainCD = document.getElementById('mainCD');
   const mainCDImg = mainCD.querySelector('img');
