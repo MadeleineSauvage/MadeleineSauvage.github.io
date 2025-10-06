@@ -158,6 +158,11 @@
       to { transform: rotate(360deg); }
     }
 
+    .cd-screen[data-cd="assets/cd1.png"] .left-column {
+      margin-top: 0; /* remove the top offset so both fit perfectly */
+      gap: 0;        /* no gap between the two images */
+    }
+
     .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
       height: 50vh;      /* each image takes up half the screen height */
       width: auto;       /* keep proportions */
@@ -412,6 +417,7 @@
       <div class="carousel-track" id="carouselTrack">
         <div class="carousel-cd"><img src="assets/cd.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd1.png" alt="CD"></div>
+        <div class="carousel-cd"><img src="assets/cd2.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd3.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd4.png" alt="CD"></div>
         <div class="carousel-cd"><img src="assets/cd5.png" alt="CD"></div>
