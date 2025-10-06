@@ -24,6 +24,14 @@ body.lock-scroll {
   height: 100vh;
 }
 
+.main-page-background {
+  background: url('assets/back.jpeg') center/cover no-repeat;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+
 /* ========== CONTENT SCREENS ========== */
 .content-screens {
   position: fixed;
@@ -293,6 +301,7 @@ body.lock-scroll {
 </head>
 <body>
   <!-- Content screens -->
+  <div class="main-page-background"></div>
   <div class="content-screens">
 
     <!-- Screen for cd.png -->
