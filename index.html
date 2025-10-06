@@ -456,81 +456,114 @@
     });
 
     // Carousel loop
-    const track = document.getElementById('carouselTrack');
-    const cds = Array.from(track.children);
-    const cdWidth = 150 + 0;
-    const totalCDs = cds.length;
+const track = document.getElementById('carouselTrack');
+const cds = Array.from(track.children);
+const cdWidth = 200;
+const totalCDs = cds.length;
 
-    const cloneBefore = cds.map(cd => cd.cloneNode(true));
-    const cloneAfter = cds.map(cd => cd.cloneNode(true));
-    cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
-    cloneAfter.forEach(c => track.appendChild(c));
+// Clone for infinite loop
+const cloneBefore = cds.map(cd => cd.cloneNode(true));
+const cloneAfter = cds.map(cd => cd.cloneNode(true));
+cloneBefore.forEach(c => track.insertBefore(c, track.firstChild));
+cloneAfter.forEach(c => track.appendChild(c));
 
-    const loopWidth = cdWidth * totalCDs;
-    let currentTranslate = -loopWidth;
-    track.style.transform = `translateX(${currentTranslate}px)`;
+const loopWidth = cdWidth * totalCDs;
+let currentTranslate = -loopWidth;
+let startX = 0;
+let prevX = 0;
+let velocity = 0;
+let animationFrame;
 
-    let startX;
-    let startTranslate = 0;
+function setTranslateX(x) {
+  track.style.transform = `translateX(${x}px)`;
+}
 
-    function normalizePosition() {
-      if (currentTranslate > -cdWidth) {
-        currentTranslate -= loopWidth;
-      } else if (currentTranslate < -loopWidth * 2) {
-        currentTranslate += loopWidth;
-      }
-      track.style.transform = `translateX(${currentTranslate}px)`;
-    }
+function normalizePosition() {
+  if (currentTranslate > -cdWidth) {
+    currentTranslate -= loopWidth;
+  } else if (currentTranslate < -loopWidth * 2) {
+    currentTranslate += loopWidth;
+  }
+  setTranslateX(currentTranslate);
+}
 
-    track.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startTranslate = currentTranslate;
+// Smooth animation loop
+function animateScroll() {
+  currentTranslate += velocity;
+  velocity *= 0.95; // friction
+  normalizePosition();
+  setTranslateX(currentTranslate);
+  if (Math.abs(velocity) > 0.1) {
+    animationFrame = requestAnimationFrame(animateScroll);
+  }
+}
+
+function stopMomentum() {
+  cancelAnimationFrame(animationFrame);
+  animationFrame = null;
+}
+
+function startDrag(x) {
+  stopMomentum();
+  startX = x;
+  prevX = x;
+}
+
+function moveDrag(x) {
+  const diff = x - prevX;
+  currentTranslate += diff;
+  velocity = diff;
+  prevX = x;
+  setTranslateX(currentTranslate);
+}
+
+function endDrag() {
+  startX = 0;
+  requestAnimationFrame(animateScroll);
+}
+
+// Mouse + Touch support
+track.addEventListener('mousedown', e => startDrag(e.clientX));
+window.addEventListener('mousemove', e => { if (startX) moveDrag(e.clientX); });
+window.addEventListener('mouseup', endDrag);
+
+track.addEventListener('touchstart', e => startDrag(e.touches[0].clientX));
+window.addEventListener('touchmove', e => {
+  if (startX) moveDrag(e.touches[0].clientX);
+});
+window.addEventListener('touchend', endDrag);
+
+// Mouse wheel scroll support
+const container = document.querySelector('.carousel-container');
+container.addEventListener('wheel', e => {
+  if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+    e.preventDefault();
+    velocity -= e.deltaX * 0.05;
+    if (!animationFrame) requestAnimationFrame(animateScroll);
+  }
+}, { passive: false });
+
+// === CD swapping logic ===
+function addSwapListeners() {
+  const allCDs = document.querySelectorAll('.carousel-cd img');
+  allCDs.forEach(cdImg => {
+    cdImg.parentElement.addEventListener('click', () => {
+      const tempSrc = mainCDImg.src;
+      mainCDImg.classList.add('swap-animate');
+      cdImg.classList.add('swap-animate');
+      setTimeout(() => {
+        mainCDImg.src = cdImg.src;
+        cdImg.src = tempSrc;
+        mainCDImg.classList.remove('swap-animate');
+        cdImg.classList.remove('swap-animate');
+        if (isSpinning) updateScreen();
+      }, 200);
     });
+  });
+}
 
-    track.addEventListener('touchmove', (e) => {
-      if (!startX) return;
-      const currentX = e.touches[0].clientX;
-      const diff = (currentX - startX) * 0.5;
-      currentTranslate = startTranslate + diff;
-      track.style.transform = `translateX(${currentTranslate}px)`;
-    });
+addSwapListeners();
 
-    track.addEventListener('touchend', () => {
-      startX = null;
-      normalizePosition();
-    });
-
-    const container = document.querySelector('.carousel-container');
-    container.addEventListener('wheel', (e) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        e.preventDefault();
-        currentTranslate -= e.deltaX * 0.3;
-        track.style.transform = `translateX(${currentTranslate}px)`;
-        normalizePosition();
-      }
-    }, { passive: false });
-
-    function addSwapListeners() {
-      const allCDs = document.querySelectorAll('.carousel-cd img');
-      allCDs.forEach(cdImg => {
-        cdImg.parentElement.addEventListener('click', () => {
-          const tempSrc = mainCDImg.src;
-          mainCDImg.classList.add('swap-animate');
-          cdImg.classList.add('swap-animate');
-          setTimeout(() => {
-            mainCDImg.src = cdImg.src;
-            cdImg.src = tempSrc;
-            mainCDImg.classList.remove('swap-animate');
-            cdImg.classList.remove('swap-animate');
-            if (isSpinning) {
-              updateScreen();
-            }
-          }, 200);
-        });
-      });
-    }
-
-    addSwapListeners();
   </script>
 </body>
 </html>
