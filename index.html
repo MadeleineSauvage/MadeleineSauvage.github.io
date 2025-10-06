@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,441 +6,310 @@
   <title>Madeleine Sauvage</title>
   <style>
     /* ========== GLOBAL RESET ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ========== BODY ========== */
-body {
-  font-family: Garamond, serif;
-  overflow-x: hidden;
-}
+    /* ========== BODY ========== */
+    body {
+      font-family: Garamond, serif;
+      overflow-x: hidden;
+    }
 
-body.lock-scroll {
-  overflow: hidden;
-  height: 100vh;
-}
+    body.lock-scroll {
+      overflow: hidden;
+      height: 100vh;
+    }
 
-.main-page-background {
-  background: url('assets/back.jpeg') center/cover no-repeat;
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-}
+    /* ========== MAIN PAGE BACKGROUND ========== */
+    .main-page-background {
+      background: url('assets/back.jpeg') center/cover no-repeat;
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.45; /* makes it slightly translucent */
+      transition: opacity 0.5s ease;
+    }
 
+    /* When content screens are active (body.lock-scroll) fade out bg */
+    body.lock-scroll .main-page-background {
+      opacity: 0;
+    }
 
-/* ========== CONTENT SCREENS ========== */
-.content-screens {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
-}
+    /* ========== CONTENT SCREENS ========== */
+    .content-screens {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 0;
+    }
 
-body.lock-scroll .main-page-background {
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+    .cd-screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      background-color: #fff; /* ensures main bg doesn't show through */
+    }
 
+    .cd-screen.active {
+      opacity: 1;
+    }
 
-.cd-screen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
+    /* Universal layout inside screens */
+    .screen-content-custom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
 
-.cd-screen.active {
-  opacity: 1;
-}
+    /* Left column */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 5vh;
+    }
 
-/* Universal layout inside screens */
-.screen-content-custom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
+    .left-column img.album-art {
+      width: 300px;
+      height: auto;
+      object-fit: cover;
+    }
 
-/* Left column */
-.left-column {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 5vh;
-}
+    /* Right column */
+    .right-column {
+      max-width: 40%;
+      text-align: right;
+      padding-right: 40px;
+    }
 
-.left-column img.album-art {
-  width: 300px;
-  height: auto;
-  object-fit: cover;
-}
+    /* Text hierarchy */
+    .screen-title {
+      font-size: 3em;
+      color: #2e6f40;
+      margin-bottom: 10px;
+    }
 
-/* Right column */
-.right-column {
-  max-width: 40%;
-  text-align: right;
-  padding-right: 40px;
-}
+    .screen-subtitle {
+      font-size: 1.4em;
+      color: #555;
+      margin-bottom: 12px;
+      font-weight: normal;
+    }
 
-/* Text hierarchy */
-.screen-title {
-  font-size: 3em;
-  color: #2e6f40;
-  margin-bottom: 10px;
-}
+    .screen-text {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #333;
+    }
 
-.screen-subtitle {
-  font-size: 1.4em;
-  color: #555;
-  margin-bottom: 12px;
-  font-weight: normal;
-}
+    /* Spacer before main CD */
+    .spacer {
+      height: 70vh;
+    }
 
-.screen-text {
-  font-size: 1.1em;
-  line-height: 1.6;
-  color: #333;
-}
+    /* ========== MAIN CD ========== */
+    .main-cd-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 60px;
+      padding: 40px 0;
+      position: relative;
+      z-index: 2;
+    }
 
-/* Spacer before main CD */
-.spacer {
-  height: 70vh;
-}
+    .cd {
+      width: 300px;
+      height: 300px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
 
-/* ========== MAIN CD ========== */
-.main-cd-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 60px;
-  padding: 40px 0;
-  position: relative;
-  z-index: 2;
-}
+    .cd img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      background: transparent;
+      transition: transform 0.25s ease;
+    }
 
-.cd {
-  width: 300px;
-  height: 300px;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.3s ease;
-}
+    .cd:hover {
+      transform: scale(1.05);
+    }
 
-.cd img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  background: transparent;
-  transition: transform 0.25s ease;
-}
+    .cd.spinning {
+      transform: scale(1.15) translateY(-15px);
+      z-index: 3;
+    }
 
-.cd:hover {
-  transform: scale(1.05);
-}
+    .cd.spinning img {
+      animation: spin 2s linear infinite;
+    }
 
-.cd.spinning {
-  transform: scale(1.15) translateY(-15px);
-  z-index: 3;
-}
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-.cd.spinning img {
-  animation: spin 2s linear infinite;
-}
+    /* ========== CAROUSEL ========== */
+    .carousel-section {
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
 
-/* ========== CAROUSEL ========== */
-.carousel-section {
-  width: 100%;
-  position: relative;
-  z-index: 2;
-}
+    .carousel-track {
+      display: flex;
+      gap: 0;
+      padding: 20px;
+      user-select: none;
+    }
 
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
+    .carousel-cd {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-.carousel-track {
-  display: flex;
-  gap: 0;
-  padding: 20px;
-  user-select: none;
-}
+    .carousel-cd img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+      background: transparent;
+      pointer-events: none;
+    }
 
-.carousel-cd {
-  flex-shrink: 0;
-  width: 200px;
-  height: 200px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
+    .carousel-cd:hover {
+      transform: scale(1.15) translateY(-10px);
+      z-index: 2;
+    }
 
-.carousel-cd img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  background: transparent;
-  pointer-events: none;
-}
+    /* Swap animation */
+    .swap-animate {
+      transform: scale(0.8);
+    }
 
-.carousel-cd:hover {
-  transform: scale(1.15) translateY(-10px);
-  z-index: 2;
-}
+    /* ========== SCREEN-SPECIFIC STYLES ========== */
+    .cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
+      height: 45vh;
+    }
 
-/* Swap animation */
-.swap-animate {
-  transform: scale(0.8);
-}
+    .cd-screen[data-cd="assets/cd1.png"] .left-column {
+      margin-top: 0;
+      gap: 0;
+    }
 
-/* ========== SCREEN-SPECIFIC STYLES ========== */
+    .cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
+      height: 50vh;
+    }
 
-/* First CD (main page) */
-.cd-screen[data-cd="assets/cd.png"] {
-  background: url('assets/back.jpeg') center/cover no-repeat;
-}
+    .cd-screen[data-cd="assets/cd2.png"] .left-column {
+      margin-top: 0;
+      gap: 0;
+    }
 
-.cd-screen[data-cd="assets/cd.png"] .left-column img.album-art {
-  height: 45vh;
-}
+    .cd-screen[data-cd="assets/cd2.png"] .left-column img.album-art {
+      height: 38vh;
+    }
 
-/* Hanni Cardigan */
-.cd-screen[data-cd="assets/cd1.png"] .left-column {
-  margin-top: 0;
-  gap: 0;
-}
+    /* About Me (cd4) */
+    .cd-screen[data-cd="assets/cd4.png"] {
+      background-color: #faf9f6;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 40px;
+    }
 
-.cd-screen[data-cd="assets/cd1.png"] .left-column img.album-art {
-  height: 50vh;
-}
+    .cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
+      justify-content: flex-end;
+    }
 
-/* Sicily Slipover */
-.cd-screen[data-cd="assets/cd2.png"] .left-column {
-  margin-top: 0;
-  gap: 0;
-}
+    .about-title {
+      font-family: Garamond, serif;
+      font-size: 4em;
+      color: #2e6f40;
+      margin-bottom: 15px;
+    }
 
-.cd-screen[data-cd="assets/cd2.png"] .left-column img.album-art {
-  height: 38vh;
-}
+    .project-subtitle {
+      font-size: 1.4em;
+      color: #2e6f40;
+      margin-bottom: 12px;
+      font-weight: normal;
+    }
 
-/* About Me (cd4) */
-.cd-screen[data-cd="assets/cd4.png"] {
-  background-color: #faf9f6;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 40px;
-}
+    .about-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin-left: auto;
+    }
 
-.cd-screen[data-cd="assets/cd4.png"] .screen-content-custom {
-  justify-content: flex-end;
-}
+    .about-box p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #333;
+      text-align: right;
+    }
 
-.about-title {
-  font-family: Garamond, serif;
-  font-size: 4em;
-  color: #2e6f40;
-  margin-bottom: 15px;
-}
+    /* Collage grid */
+    .left-columns-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 39%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+    }
 
-.project-subtitle {
-  font-size: 1.4em;
-  color: #2e6f40;
-  margin-bottom: 12px;
-  font-weight: normal;
-}
-
-.about-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-  max-width: 400px;
-  margin-left: auto;
-}
-
-.about-box p {
-  font-size: 1.1em;
-  line-height: 1.6;
-  color: #333;
-  text-align: right;
-}
-
-/* Collage grid */
-.left-columns-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 39%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-}
-
-.left-columns-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+    .left-columns-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
-  <!-- Content screens -->
+
+  <!-- Translucent background image (main page only) -->
   <div class="main-page-background"></div>
+
+  <!-- Content screens -->
   <div class="content-screens">
-
-    <!-- Screen for cd.png -->
-    <div class="cd-screen" data-cd="assets/cd.png">
-      <div class="screen-content-custom">
-        <div class="left-column">
-          <img src="assets/IMG_0151.png" alt="Album Art" class="album-art">
-          <img src="assets/IMG_0159.png" alt="Album Art 2" class="album-art">
-        </div>
-        <div class="right-column">
-          <h2 class="screen-title">THE VERY HUNGRY CARDIGAN</h2>
-          <h3 class="screen-subtitle">@katiealicemakes</h3>
-          <p class="screen-text">
-            This was my first ever test knit, I was so nervous but it ended up being so fun!
-            It was my first time doing colourwork for a large piece, I definitely have a lot of gaps and pulling but blocking it helped. 
-            I redid the apple motif a few times to try and improve it and went back over with duplicate stitching to neaten it up.
-            <br><br>
-            Yarn used:
-            <br>
-            Drops Flora: Lemonade (26), Misty Forest (23), amethyst (09)
-            <br>
-            BC Garn Bio Shetland: Wool White (01), Forest Green (8), Grass Green (10)
-            <br>
-            All other colours were scrap yarn I already had
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-    
-    <div class="cd-screen" data-cd="assets/cd1.png">
-      <div class="screen-content-custom">
-        <div class="left-column">
-          <img src="assets/hannifront.jpeg" alt="Album Art" class="album-art">
-          <img src="assets/hanniback.jpeg" alt="Album Art 2" class="album-art">
-        </div>
-        <div class="right-column">
-          <h2 class="screen-title">THE HANNI CARDIGAN</h2>
-          <h3 class="screen-subtitle">@knittersandfriends</h3>
-          <p class="screen-text">
-            I bought this yarn to self-draft my own cardigan with and off centred close that used metal clasps. 
-            After finishing it I never wore it and wasn't happy with how it looked, I saw the Hanni Cardigan on Pinterest in burgundy and thankfully had enough yarn for it.
-            The pattern calls for the yarn to be held double with mohair but I didn't want to spend even more money and liked how the yarn looked by itself, luckily it was still on gauge.
-            I'd still like to redo the first project that used this yarn but I need to take it slower and not rush into it.
-            I love how this turned out! Double knit button bands and collar make any project look so much better, thinking of making it again in the same burgundy colour I saw!
-            <br><br>
-            Yarn used:
-            <br>
-            DROPS Nepal: 0501 MIX Grey
-          </p>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="cd-screen" data-cd="assets/cd2.png">
-      <div class="screen-content-custom">
-        <div class="left-column">
-          <img src="assets/stripe.jpeg" alt="Album Art" class="album-art">
-          <img src="assets/sicilyforever.jpeg" alt="Album Art 2" class="album-art">
-          <img src="assets/foreverback.jpeg" alt="Album Art 2" class="album-art">
-        </div>
-        <div class="right-column">
-          <h2 class="screen-title">THE SICILY SLIPOVER</h2>
-          <h3 class="screen-subtitle">@kisskissrhinestones</h3>
-          <p class="screen-text">
-            such a good pattern i made it 3 times!
-            <br><br>
-            Yarn used:
-            <br>
-            
-          </p>
-        </div>
-      </div>
-    </div>
-
-    
-<!-- Screen for cd5.png -->
-<div class="cd-screen" data-cd="assets/cd5.png">
-  <div class="screen-content-custom">
-    <!-- Left column text -->
-    <div class="left-column">
-      <h2 class="screen-title">GOODREADS RECOMMENDER SYSTEM</h2>
-      <h3 class="screen-subtitle">My Final Year Dissertation</h3>
-      <p class="screen-text">
-        
-      </p>
-      <p class="screen-text">
-      </p>
-    </div>
-
-    <!-- Right column text -->
-    <div class="right-column">
-      <p class="screen-text">      </p>
-    </div>
-  </div>
-</div>
-
-
-    <!-- Screen for cd4.png (About Me) -->
-    <div class="cd-screen" data-cd="assets/cd4.png">
-      <div class="screen-content-custom">
-        <div class="left-columns-wrapper">
-          <img src="assets/leo.jpg" alt="">
-          <img src="assets/ants.jpg" alt="">
-          <img src="assets/adrianne.jpg" alt="">
-          <img src="assets/ladder.jpg" alt="">
-          <img src="assets/wave.jpg" alt="">
-          <img src="assets/murder.jpg" alt="">
-          <img src="assets/slept.jpg" alt="">
-          <img src="assets/eno.jpg" alt="">
-          <img src="assets/eels.jpg" alt="">
-          <img src="assets/pawn.jpg" alt="">
-          <img src="assets/deja.jpg" alt="">
-          <img src="assets/mind.jpg" alt="">
-        </div>
-        <div class="right-column">
-          <h2 class="about-title">ABOUT ME</h2>
-          <p>Hi, I’m Madeleine! I did my bachelor's in Computer Science and now I'm a Postgraduate Researcher in the safety of AI. 
-            My focus is on the lifelong safety of dynamic recommender systems using uncertainty to improve recommendations for long-tail items. 
-            I believe safety in the Computer Science community deserves more time and should be seen not as a constraint but as an innovation in its own right.
-            <br><br> I love knitting, reading, gardening, collecting CDs (my favourites on the left), and listening to radio 4. 
-            This website is to document my projects — whether it's coding, research, knitting, or sewing. 
-            I'm hoping this will be a good way to see my progress and keep myself accountable over the 4 years of my PhD.  
-          </p>
-        </div>
-      </div>
-    </div>
-
+    <!-- your .cd-screen sections go here -->
   </div>
 
+  <!-- Spacer before main CD -->
   <div class="spacer"></div>
-  
+
   <!-- Main CD -->
   <div class="main-cd-container">
     <div class="cd" id="mainCD">
