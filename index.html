@@ -587,7 +587,7 @@
   // === Carousel setup ===
   const track = document.getElementById('carouselTrack');
   const cds = Array.from(track.children);
-  const cdWidth = 200;
+  const cdWidth = cds[0].offsetWidth;
   const totalCDs = cds.length;
 
   // Clone for infinite loop
