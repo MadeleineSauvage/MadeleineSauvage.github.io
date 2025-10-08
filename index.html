@@ -459,10 +459,8 @@
             also perform poorly in sparse environments, offering subpar results for long-tail items and users.
             For users with minimal interaction history and new users, the system gener
             ates recommendations by using HDBSCAN to group previously read books
-            based on feature similarity. Users with a moderate level of interaction are supported by Non-Negative
-            Matrix Factorisation. This model captures patterns in user preferences and
-            relationships between items. Its non-negativity constraints support transpar
-            ency and produce interpretable recommendations. For highly active users,
+            based on feature similarity. Users with a moderate interaction history are supported by Non-Negative
+            Matrix Factorisation. For highly active users,
             the system switches to a graph-based model using GATv2Conv combined
             with Non-Negative Matrix Factorisation. GATv2Conv combines user-item
             interactions with sentiment and genre data to give more personal recom-
