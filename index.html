@@ -448,23 +448,25 @@
     <div class="cd-screen" data-cd="assets/cd5.png">
       <div class="screen-content-custom">
         <div class="left-column">
+        <img src="assets/ladybird.jpeg" alt="Album Art" class="album-art">
+        </div>
+        <div class="right-column">
           <h2 class="screen-title">GOODREADS RECOMMENDER SYSTEM</h2>
           <h3 class="screen-subtitle">My Final Year Dissertation</h3>
           <p class="screen-text">
             Traditional systems often prioritise popular content, narrowing exposure
             and failing to provide transparency in how suggestions are generated. They
             also perform poorly in sparse environments, offering subpar results for long-tail items and users.
-            For users with minimal interaction history and new users, the system gener-
+            For users with minimal interaction history and new users, the system gener
             ates recommendations by using HDBSCAN to group previously read books
             based on feature similarity. Users with a moderate level of interaction are supported by Non-Negative
             Matrix Factorisation. This model captures patterns in user preferences and
-            relationships between items. Its non-negativity constraints support transpar-
+            relationships between items. Its non-negativity constraints support transpar
             ency and produce interpretable recommendations. For highly active users,
             the system switches to a graph-based model using GATv2Conv combined
             with Non-Negative Matrix Factorisation. GATv2Conv combines user-item
             interactions with sentiment and genre data to give more personal recom-
-            mendations. The NMF and GATv2Conv outputs are ranked and weighted
-            to ensure a balance of precision and diversity.
+            mendations. 
           </p>
         </div>
       </div>
