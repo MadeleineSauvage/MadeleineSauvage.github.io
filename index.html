@@ -356,6 +356,17 @@
       height: 100%;
       object-fit: cover;
     }
+
+      /* cd3 specific styling */
+    .cd-screen[data-cd="assets/cd3.png"] .left-column {
+      padding-left: 0;
+      margin-left: 0;
+      gap: 10px;
+    }
+
+    .cd-screen[data-cd="assets/cd3.png"] .left-column img:nth-child(2) {
+      margin-left: -40px; /* counteract the screen padding */
+    }
   </style>
 </head>
 <body>
@@ -447,8 +458,9 @@
     <div class="cd-screen" data-cd="assets/cd3.png">
       <div class="screen-content-custom">
         <div class="left-column">
-          <img src="assets/IMG_0693.png" alt="Album Art" class="album-art">
           <img src="assets/IMG_0973.png" alt="Album Art 2" class="album-art">
+          <img src="assets/IMG_0693.png" alt="Album Art" class="album-art">
+          
         </div>
         <div class="right-column">
           <h2 class="screen-title">THE HARU SLIPOVER</h2>
