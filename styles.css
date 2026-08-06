@@ -18,7 +18,6 @@ body {
 /* ==========================================================================
    2. COMMON NAVIGATION BAR
    ========================================================================== */
-/* Default transparent navigation for home/about page */
 .top-nav {
   position: fixed;
   top: 30px;
@@ -57,7 +56,6 @@ body {
   position: relative;
 }
 
-/* 5 rows x 4 columns = 20 perfect 1:1 square album cells filling 100vh */
 .left-columns-wrapper {
   position: fixed;
   top: 0;
@@ -79,10 +77,9 @@ body {
   display: block;
 }
 
-/* Right-side text section */
 .right-column {
-  margin-left: calc(80vh + 60px); /* Keeps text clear of the collage */
-  margin-top: 40px; /* Pushes title & paragraph slightly lower */
+  margin-left: calc(80vh + 60px);
+  margin-top: 40px;
   max-width: 750px;
   width: 100%;
   padding: 60px 60px 60px 0;
@@ -94,27 +91,26 @@ body {
   font-size: 4em;
   color: #2e6f40;
   margin-bottom: 20px;
-  text-align: right; /* Right-aligned heading */
+  text-align: right;
 }
 
 .about-text {
   font-size: 1.25em;
   color: #333;
   line-height: 1.7;
-  text-align: justify; /* Flush block/squared-off text edges */
+  text-align: justify;
   text-justify: inter-word;
   margin: 0 auto;
 }
 
 /* ==========================================================================
-   4. PROJECTS PAGE (projects.html)
+   4. PROJECTS MAIN PAGE - GRID (projects.html)
    ========================================================================== */
-/* Enable vertical scrolling on the projects page */
-body:has(.projects-container) {
+body:has(.projects-container),
+body:has(.project-detail-container) {
   overflow-y: auto;
 }
 
-/* Solid top banner mask ONLY on projects page to mask cards as they scroll up */
 .projects-page-nav {
   top: 0;
   right: 0;
@@ -127,18 +123,17 @@ body:has(.projects-container) {
   background-color: #faf9f6; 
 }
 
-/* Main scrollable container */
+/* Restored Grid Container for projects.html */
 .projects-container {
   width: 100vw;
   min-height: 100vh;
-  padding: 130px 8% 80px 8%; /* Top padding ensures cards stay below the 90px banner */
+  padding: 130px 8% 80px 8%;
   display: flex;
   justify-content: center;
   position: relative;
   z-index: 1;
 }
 
-/* Grid layout for project cards */
 .projects-grid {
   width: 100%;
   max-width: 1400px;
@@ -147,7 +142,6 @@ body:has(.projects-container) {
   gap: 40px 30px;
 }
 
-/* Individual Project Card */
 .project-card {
   text-decoration: none;
   color: inherit;
@@ -190,11 +184,80 @@ body:has(.projects-container) {
 
 .project-subtitle {
   font-family: Garamond, serif;
-  font-size: 1em;
+  font-size: 1.0em;
   color: #666;
 }
 
-/* Gallery Container */
+/* ==========================================================================
+   5. SINGLE PROJECT DETAIL PAGE (Text - Image - Quote Layout)
+   ========================================================================== */
+.project-detail-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding-top: 130px;
+  padding-bottom: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.project-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 96%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.text-left {
+  flex: 1;
+  text-align: right;
+  padding-left: 0px;
+}
+
+.project-img {
+  width: 100%;
+  max-width: 400px;
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+}
+
+.text-right {
+  flex: 1;
+  text-align: left;
+  font-size: 2rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: #392a1d;
+}
+
+.text-right p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .project-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .text-left, 
+  .text-right {
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   6. GALLERY PAGE (gallery.html)
+   ========================================================================== */
 body:has(.scatter-gallery-container) {
   overflow-y: auto;
   overflow-x: hidden;
@@ -218,7 +281,7 @@ body:has(.scatter-gallery-container) {
   height: 200px;
   object-fit: contain;
   background: transparent !important;
-  mix-blend-mode: multiply; /* Blends out dark/black artifacts on light backgrounds */
+  mix-blend-mode: multiply;
   transition: transform 0.3s ease;
   z-index: 1;
 }
@@ -226,4 +289,52 @@ body:has(.scatter-gallery-container) {
 .scatter-item:hover {
   transform: scale(1.08) rotate(0deg) !important;
   z-index: 10;
+}
+
+/* ==========================================================================
+   STANDARD TEXT PAGE LAYOUT
+   ========================================================================== */
+
+/* Enables vertical scrolling for pages using this container */
+body:has(.text-page-container) {
+  overflow-y: auto;
+}
+
+/* Centers the entire content block in the middle of the screen */
+.text-page-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 140px 20px 80px; /* Top padding clears fixed navigation bar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* Centers the text block horizontally */
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+/* Smallish heading */
+.standard-heading {
+  width: 100%;
+  max-width: 650px;         /* Keeps the heading width matched to the text block */
+  font-family: Garamond, serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2e6f40;
+  text-align: left;         /* Left aligned */
+  margin-bottom: 24px;
+}
+
+/* Text block container: left-aligned text */
+.standard-content {
+  width: 100%;
+  max-width: 650px;         /* Limits line length for readable reading width */
+  text-align: left;        /* Keeps all body text left-aligned */
+  font-family: Garamond, serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #333333;
+}
+
+.standard-content p {
+  margin-bottom: 18px;
 }
