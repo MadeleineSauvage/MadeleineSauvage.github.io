@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Madeleine Sauvage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Fixed Top Navigation Bar -->
+  <nav class="top-nav projects-page-nav">
+    <a href="index.html">ABOUT ME</a>
+    <a href="projects.html">PROJECTS</a>
+    <a href="gallery.html" class="active">GALLERY</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
+
+  <!-- Full-Width Canvas for Scattered Images -->
+  <main class="scatter-gallery-container">
+    <div id="scatter-board" class="scatter-board"></div>
+  </main>
+
+  <script>
+    const images = [
+      'assets/knitting/top.png',
+      'assets/knitting/stripe.jpeg',
+      'assets/knitting/bag.png',
+      'assets/knitting/vest.png',
+      'assets/knitting/rat.png',
+      'assets/knitting/kermit.png',
+      'assets/knitting/apple.jpeg',
+      'assets/knitting/IMG_0151.png',
+      'assets/knitting/dream.png',
+      'assets/knitting/polo.png',
+      'assets/knitting/house.png',
+      'assets/knitting/ladybird.jpeg',
+      'assets/knitting/sicilyforever.jpeg',
+      'assets/knitting/IMG_0973.png',
+      'assets/knitting/socks.jpeg',
+      'assets/knitting/hannifront.jpeg',
+      'assets/knitting/stripejumper.png',
+      'assets/knitting/cloud.png',
+      'assets/knitting/stripevest.png',
+
+
+    ];
+
+  const board = document.getElementById('scatter-board');
+    
+    // Size settings
+    const imgSize = 200; 
+    const padding = 20; // Clearance buffer between images
+    const cellSize = imgSize + padding;
+
+    // Viewport width and grid columns
+    const fullWidth = window.innerWidth;
+    const cols = Math.max(1, Math.floor(fullWidth / cellSize));
+    const totalRows = Math.ceil(images.length / cols);
+
+    // Calculate remaining empty space on the screen and split it evenly on left and right
+    const totalGridWidth = cols * cellSize;
+    const sideMargin = Math.max(5, (fullWidth - totalGridWidth) / 2);
+
+    // Set board height
+    board.style.width = '100vw';
+    board.style.height = `${(totalRows * cellSize) + 200}px`;
+
+    images.forEach((src, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+
+      const img = document.createElement('img');
+      img.src = src;
+      img.className = 'scatter-item';
+
+      // Random position jitter inside its cell zone
+      const leftOffset = Math.floor(Math.random() * (cellSize - imgSize));
+      const topOffset = Math.floor(Math.random() * (cellSize - imgSize));
+
+      // Add sideMargin so the grid starts balanced across the screen
+      const posX = sideMargin + (col * cellSize) + leftOffset;
+      const posY = (row * cellSize) + topOffset + 130; 
+
+      // Random rotation (-15deg to +15deg)
+      const rotation = Math.floor(Math.random() * 30) - 15;
+
+      img.style.left = `${posX}px`;
+      img.style.top = `${posY}px`;
+      img.style.transform = `rotate(${rotation}deg)`;
+
+      board.appendChild(img);
+    });
+  </script>
+
+</body>
+</html>

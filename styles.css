@@ -1,0 +1,229 @@
+/* ==========================================================================
+   1. GLOBAL STYLES & RESET
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Garamond, serif;
+  background-color: #faf9f6;
+  color: #333;
+  line-height: 1.6;
+  overflow: hidden; /* Fixed screen for index.html */
+}
+
+/* ==========================================================================
+   2. COMMON NAVIGATION BAR
+   ========================================================================== */
+/* Default transparent navigation for home/about page */
+.top-nav {
+  position: fixed;
+  top: 30px;
+  right: 60px;
+  display: flex;
+  gap: 30px;
+  z-index: 100;
+  background: transparent;
+}
+
+.top-nav a {
+  text-decoration: none;
+  font-family: Garamond, serif;
+  font-size: 1.1em;
+  color: #777;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.top-nav a.active,
+.top-nav a:hover {
+  color: #2e6f40;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   3. ABOUT ME PAGE (index.html)
+   ========================================================================== */
+.about-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+/* 5 rows x 4 columns = 20 perfect 1:1 square album cells filling 100vh */
+.left-columns-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80vh; 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.left-columns-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Right-side text section */
+.right-column {
+  margin-left: calc(80vh + 60px); /* Keeps text clear of the collage */
+  margin-top: 40px; /* Pushes title & paragraph slightly lower */
+  max-width: 750px;
+  width: 100%;
+  padding: 60px 60px 60px 0;
+  z-index: 2;
+  position: relative;
+}
+
+.about-title {
+  font-size: 4em;
+  color: #2e6f40;
+  margin-bottom: 20px;
+  text-align: right; /* Right-aligned heading */
+}
+
+.about-text {
+  font-size: 1.25em;
+  color: #333;
+  line-height: 1.7;
+  text-align: justify; /* Flush block/squared-off text edges */
+  text-justify: inter-word;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. PROJECTS PAGE (projects.html)
+   ========================================================================== */
+/* Enable vertical scrolling on the projects page */
+body:has(.projects-container) {
+  overflow-y: auto;
+}
+
+/* Solid top banner mask ONLY on projects page to mask cards as they scroll up */
+.projects-page-nav {
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 90px;
+  padding-right: 60px;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #faf9f6; 
+}
+
+/* Main scrollable container */
+.projects-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 130px 8% 80px 8%; /* Top padding ensures cards stay below the 90px banner */
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Grid layout for project cards */
+.projects-grid {
+  width: 100%;
+  max-width: 1400px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px 30px;
+}
+
+/* Individual Project Card */
+.project-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card .image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #eee;
+  margin-bottom: 15px;
+}
+
+.project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.03);
+}
+
+.project-title {
+  font-family: Garamond, serif;
+  font-size: 1.4em;
+  color: #2e6f40;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.project-subtitle {
+  font-family: Garamond, serif;
+  font-size: 1em;
+  color: #666;
+}
+
+/* Gallery Container */
+body:has(.scatter-gallery-container) {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scatter-gallery-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.scatter-board {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.scatter-item {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  background: transparent !important;
+  mix-blend-mode: multiply; /* Blends out dark/black artifacts on light backgrounds */
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.scatter-item:hover {
+  transform: scale(1.08) rotate(0deg) !important;
+  z-index: 10;
+}
