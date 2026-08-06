@@ -12,8 +12,8 @@
   <nav class="top-nav projects-page-nav">
     <a href="index.html">ABOUT ME</a>
     <a href="projects.html">PROJECTS</a>
-    <a href="gallery.html" class="active">GALLERY</a>
     <a href="contact.html">CONTACT</a>
+    <a href="gallery.html" class="active">GALLERY</a>
   </nav>
 
   <!-- Full-Width Canvas for Scattered Images -->
@@ -21,32 +21,30 @@
     <div id="scatter-board" class="scatter-board"></div>
   </main>
 
-  <script>
+<script>
     const images = [
-      'assets/knitting/top.png',
-      'assets/knitting/stripe.jpeg',
-      'assets/knitting/bag.png',
-      'assets/knitting/vest.png',
-      'assets/knitting/rat.png',
-      'assets/knitting/kermit.png',
-      'assets/knitting/apple.jpeg',
-      'assets/knitting/IMG_0151.png',
-      'assets/knitting/dream.png',
-      'assets/knitting/polo.png',
-      'assets/knitting/house.png',
-      'assets/knitting/ladybird.jpeg',
-      'assets/knitting/sicilyforever.jpeg',
-      'assets/knitting/IMG_0973.png',
-      'assets/knitting/socks.jpeg',
-      'assets/knitting/hannifront.jpeg',
-      'assets/knitting/stripejumper.png',
-      'assets/knitting/cloud.png',
-      'assets/knitting/stripevest.png',
-
-
+      { src: 'assets/knitting/top.png', tag: 'freehand top' },
+      { src: 'assets/knitting/stripe.jpeg', tag: 'sicily slipover' },
+      { src: 'assets/knitting/bag.png', tag: 'scrap patch bag' },
+      { src: 'assets/knitting/vest.png', tag: 'a vest to be' },
+      { src: 'assets/knitting/rat.png', tag: 'for rat boy' },
+      { src: 'assets/knitting/kermit.png', tag: 'crochet tapestry' },
+      { src: 'assets/knitting/apple.jpeg', tag: 'apple scrunchie' },
+      { src: 'assets/knitting/IMG_0151.png', tag: 'hungry caterpillar cardi' },
+      { src: 'assets/knitting/dream.png', tag: 'kafka' },
+      { src: 'assets/knitting/polo.png', tag: 'stripe polo' },
+      { src: 'assets/knitting/house.png', tag: 'little house' },
+      { src: 'assets/knitting/ladybird.jpeg', tag: 'ladybird' },
+      { src: 'assets/knitting/sicilyforever.jpeg', tag: 'sicily slipover x adrianne lenker' },
+      { src: 'assets/knitting/IMG_0973.png', tag: 'cable knit' },
+      { src: 'assets/knitting/socks.jpeg', tag: 'not sure if i ever finished that sock' },
+      { src: 'assets/knitting/hannifront.jpeg', tag: 'hanni cardi' },
+      { src: 'assets/knitting/stripejumper.png', tag: 'crochet striped pullover' },
+      { src: 'assets/knitting/cloud.png', tag: 'the start of the cloud sweater' },
+      { src: 'assets/knitting/stripevest.png', tag: 'freehand vest (can you tell i like stripes?)' },
     ];
 
-  const board = document.getElementById('scatter-board');
+    const board = document.getElementById('scatter-board');
     
     // Size settings
     const imgSize = 200; 
@@ -66,12 +64,15 @@
     board.style.width = '100vw';
     board.style.height = `${(totalRows * cellSize) + 200}px`;
 
-    images.forEach((src, index) => {
+    // CHANGED: Rename loop parameter from `src` to `item`
+    images.forEach((item, index) => {
       const col = index % cols;
       const row = Math.floor(index / cols);
 
       const img = document.createElement('img');
-      img.src = src;
+      img.src = item.src;        // FIXED: Access item.src path
+      img.alt = item.tag;        // Added alt attribute for accessibility
+      img.title = item.tag;      // FIXED: Display the custom tag on hover
       img.className = 'scatter-item';
 
       // Random position jitter inside its cell zone
