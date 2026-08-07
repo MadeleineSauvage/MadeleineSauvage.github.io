@@ -423,3 +423,135 @@ body:has(.text-page-container) {
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   CONTACT PAGE - OPACITY & TRANSLUCENCY CONTROLS
+   ========================================================================== */
+
+/* 1. TOP NAV: Half Opacity Background */
+body.contact-page .projects-page-nav {
+  /* Using rgba lets you set the nav background to 50% opacity (0.5) 
+     without making your navigation TEXT see-through */
+  background-color: rgba(250, 249, 246, 0.5) !important; 
+  z-index: 100;
+}
+
+/* 2. BACKGROUND IMAGE CONTAINER */
+.contact-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 0;
+  overflow: hidden;
+  
+  /* Background color that shows through when image opacity is lowered */
+  background-color: #faf9f6; 
+}
+
+/* 3. BACKGROUND IMAGE: Direct Opacity Control */
+.contact-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+
+  /* OPACITY CONTROL: Fiddle with this number (0.0 to 1.0) */
+  opacity: 0.15; 
+}
+
+/* ==========================================================================
+   CENTERED CONTACT CONTENT
+   ========================================================================== */
+
+.contact-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Locks element to exact center */
+  z-index: 10;                     /* Sits above the background image */
+  text-align: center;              /* Centers paragraph/heading text lines */
+  width: 90%;
+  max-width: 800px;
+}
+
+.contact-content h1 {
+  font-family: Garamond, serif;
+  font-size: 3rem;
+  color: #2e6f40;
+  margin-bottom: 12px;
+  font-weight: normal;
+}
+
+.contact-content p {
+  font-family: Garamond, serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333333;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   CENTERED CONTACT CARD
+   ========================================================================== */
+
+.contact-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 90%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-card {
+  background: rgba(250, 249, 246, 0.88); /* Off-white with slight translucency */
+  backdrop-filter: blur(8px);             /* Frosted glass blur effect behind the box */
+  -webkit-backdrop-filter: blur(8px);     /* Safari support */
+  padding: 40px 45px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Soft floating shadow */
+  text-align: center;
+  width: 80%;
+}
+
+.contact-card h2 {
+  font-family: Garamond, serif;
+  font-size: 2.2rem;
+  color: #2e6f40;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.contact-card p {
+  font-family: Garamond, serif;
+  font-size: 1.15rem;
+  color: #333333;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+
+.contact-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Link Styling */
+.contact-card a {
+  color: #2e6f40;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  word-break: break-word; /* Prevents long URLs from overflowing on mobile */
+}
+
+.contact-card a:hover {
+  color: #1b4427;
+  opacity: 0.8;
+}
