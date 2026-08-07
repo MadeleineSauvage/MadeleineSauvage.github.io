@@ -15,6 +15,13 @@ body {
   overflow: hidden; /* Fixed screen for index.html */
 }
 
+/* Global guard to prevent mobile horizontal wobble */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* ==========================================================================
    2. COMMON NAVIGATION BAR
    ========================================================================== */
@@ -45,11 +52,11 @@ body {
 }
 
 /* ==========================================================================
-   3. ABOUT ME PAGE (index.html)
+   3. ABOUT ME PAGE (index.html) - DESKTOP DEFAULT
    ========================================================================== */
 .about-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -60,8 +67,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 80%; 
+  height: 100vh;
+  width: 80vh; /* Keeps perfect 1:1 ratio for square collage on desktop */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -115,7 +122,7 @@ body:has(.project-detail-container) {
   top: 0;
   right: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   height: 90px;
   padding-right: 60px;
   justify-content: flex-end;
@@ -123,9 +130,9 @@ body:has(.project-detail-container) {
   background-color: #faf9f6; 
 }
 
-/* Restored Grid Container for projects.html */
+/* Grid Container for projects.html */
 .projects-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding: 130px 8% 80px 8%;
   display: flex;
@@ -192,7 +199,7 @@ body:has(.project-detail-container) {
    5. SINGLE PROJECT DETAIL PAGE (Text - Image - Quote Layout)
    ========================================================================== */
 .project-detail-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -242,19 +249,6 @@ body:has(.project-detail-container) {
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .project-row {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .text-left, 
-  .text-right {
-    text-align: center;
-  }
-}
-
 /* ==========================================================================
    6. GALLERY PAGE (gallery.html)
    ========================================================================== */
@@ -264,14 +258,14 @@ body:has(.scatter-gallery-container) {
 }
 
 .scatter-gallery-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding-bottom: 100px;
 }
 
 .scatter-board {
   position: relative;
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -292,44 +286,38 @@ body:has(.scatter-gallery-container) {
 }
 
 /* ==========================================================================
-   STANDARD TEXT PAGE LAYOUT
+   7. STANDARD TEXT PAGE LAYOUT
    ========================================================================== */
-
-/* Enables vertical scrolling for pages using this container */
 body:has(.text-page-container) {
   overflow-y: auto;
 }
 
-
-/* Centers the entire content block in the middle of the screen */
 .text-page-container {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
-  padding: 140px 20px 80px; /* Top padding clears fixed navigation bar */
+  padding: 140px 20px 80px;
   display: flex;
   flex-direction: column;
-  align-items: center;      /* Centers the text block horizontally */
+  align-items: center;
   justify-content: flex-start;
   z-index: 1;
 }
 
-/* Smallish heading */
 .standard-heading {
   width: 100%;
-  max-width: 650px;         /* Keeps the heading width matched to the text block */
+  max-width: 650px;
   font-family: Garamond, serif;
   font-size: 1.8rem;
   font-weight: 600;
   color: #2e6f40;
-  text-align: left;         /* Left aligned */
+  text-align: left;
   margin-bottom: 24px;
 }
 
-/* Text block container: left-aligned text */
 .standard-content {
   width: 100%;
-  max-width: 650px;         /* Limits line length for readable reading width */
-  text-align: left;        /* Keeps all body text left-aligned */
+  max-width: 650px;
+  text-align: left;
   font-family: Garamond, serif;
   font-size: 1.15rem;
   line-height: 1.7;
@@ -341,21 +329,20 @@ body:has(.text-page-container) {
 }
 
 /* ==========================================================================
-   MOBILE & TABLET RESPONSIVENESS
+   8. MOBILE & TABLET RESPONSIVENESS (Isolates mobile fixes from Desktop)
    ========================================================================== */
 
 /* TABLETS & SMALL LAPTOPS */
 @media (max-width: 900px) {
-  /* Navigation spacing */
   .top-nav {
     right: 20px;
     gap: 15px;
   }
+
   .top-nav a {
     font-size: 0.9em;
   }
 
-  /* About Me page: allow scrolling and un-fix the collage */
   body {
     overflow-y: auto !important;
   }
@@ -363,11 +350,12 @@ body:has(.text-page-container) {
   .about-container {
     flex-direction: column;
     height: auto;
+    min-height: 100dvh;
   }
 
   .left-columns-wrapper {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 50vh;
   }
 
@@ -377,7 +365,6 @@ body:has(.text-page-container) {
     padding: 30px 20px;
   }
 
-  /* Project detail rows: stack vertical */
   .project-row {
     flex-direction: column;
     text-align: center;
@@ -391,13 +378,12 @@ body:has(.text-page-container) {
   }
 
   .text-right {
-    font-size: 1.4rem; /* Scale down large quotes */
+    font-size: 1.4rem;
   }
 }
 
 /* SMARTPHONES */
 @media (max-width: 600px) {
-  /* Top Nav: transform into a compact top header */
   .top-nav {
     position: fixed;
     top: 0;
@@ -418,13 +404,13 @@ body:has(.text-page-container) {
     letter-spacing: 0.8px;
   }
 
-  /* Adjust top padding on all main containers so nav bar doesn't cover content */
   .projects-container,
   .project-detail-container,
   .text-page-container {
     padding-top: 80px;
     padding-left: 15px;
     padding-right: 15px;
+    min-height: 100svh;
   }
 
   .project-img {
