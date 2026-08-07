@@ -300,6 +300,7 @@ body:has(.text-page-container) {
   overflow-y: auto;
 }
 
+
 /* Centers the entire content block in the middle of the screen */
 .text-page-container {
   width: 100vw;
@@ -337,4 +338,102 @@ body:has(.text-page-container) {
 
 .standard-content p {
   margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVENESS
+   ========================================================================== */
+
+/* TABLETS & SMALL LAPTOPS */
+@media (max-width: 900px) {
+  /* Navigation spacing */
+  .top-nav {
+    right: 20px;
+    gap: 15px;
+  }
+  .top-nav a {
+    font-size: 0.9em;
+  }
+
+  /* About Me page: allow scrolling and un-fix the collage */
+  body {
+    overflow-y: auto !important;
+  }
+  
+  .about-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-columns-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+  }
+
+  .right-column {
+    margin-left: 0;
+    margin-top: 20px;
+    padding: 30px 20px;
+  }
+
+  /* Project detail rows: stack vertical */
+  .project-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .text-left, 
+  .text-right {
+    text-align: center;
+    padding: 0 15px;
+  }
+
+  .text-right {
+    font-size: 1.4rem; /* Scale down large quotes */
+  }
+}
+
+/* SMARTPHONES */
+@media (max-width: 600px) {
+  /* Top Nav: transform into a compact top header */
+  .top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #faf9f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    z-index: 1000;
+  }
+
+  .top-nav a {
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+  }
+
+  /* Adjust top padding on all main containers so nav bar doesn't cover content */
+  .projects-container,
+  .project-detail-container,
+  .text-page-container {
+    padding-top: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .project-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .about-title {
+    font-size: 2.5em;
+    text-align: center;
+  }
 }
