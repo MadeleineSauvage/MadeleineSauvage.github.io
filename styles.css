@@ -245,8 +245,15 @@ body:has(.project-detail-container) {
   color: #392a1d;
 }
 
+
 .text-right p {
   margin: 0;
+}
+
+/* Custom utility class for italic and larger text */
+.text-featured {
+  font-style: italic;
+  font-size: 1.15em; /* Scales text 15% larger than the surrounding paragraph */
 }
 
 /* ==========================================================================
@@ -554,4 +561,32 @@ body.contact-page .projects-page-nav {
 .contact-card a:hover {
   color: #1b4427;
   opacity: 0.8;
+}
+
+.substack-header-image {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.substack-header-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Header Image: Restricted to match text width (650px) and cropped */
+.header-image-container {
+  width: 100%;
+  max-width: 650px; /* Locks width to match .standard-heading and .standard-content */
+  margin: 0 auto 24px auto;
+}
+
+.header-image {
+  width: 100%;
+  height: 250px; /* Adjust height here to change the crop */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0px;
 }
